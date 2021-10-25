@@ -7,7 +7,7 @@ int	main(int argc, char *argv[], char **env)
 
 	char *str = readline(">");
 
-	t_list *list = parse(str);
+	t_cmds *list = parse(str);
 
 	while (list)
 	{
