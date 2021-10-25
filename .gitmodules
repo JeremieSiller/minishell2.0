@@ -1,3 +1,3 @@
-[submodule "libft"]
-	path = libft
+[submodule "Libft"]
+	path = Libft
 	url = git@github.com:nschumac/42cursus00-Libft.git
