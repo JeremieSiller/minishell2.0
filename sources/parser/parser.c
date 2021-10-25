@@ -1,4 +1,4 @@
-#include "../../includes/parser.h"
+#include <parser.h>
 
 int	double_qoutes(char *str, int *cnt)
 {
