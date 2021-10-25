@@ -12,6 +12,7 @@ typedef struct s_redirect
 	bool	type;
 	char	*path;
 }	t_redirect;
+
 typedef struct s_list
 {
 	char			**cmd;
