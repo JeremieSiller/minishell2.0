@@ -3,6 +3,9 @@
 
 
 
+void	parse(char *str)
+{
 
+}
 
 
