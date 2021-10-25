@@ -5,8 +5,9 @@ CPPFLAGS	= -I/Users/$(USER)/.brew/opt/readline/include
 
 INC			= -I./Libft -I./includes
 
-CFLAGS		= -lreadline $(LDFLAGS) $(CPPFLAGS) $(INC) -L Libft/ -lft -Wall -Werror -Wextra
+CFLAGS =  $(LDFLAGS) $(CPPFLAGS) -Wall -Werror -Wextra 
 
+LFLAGS = -ltermcap -L libft/ -lft -lreadline
 
 NAME		= minishell
 LIB_PATH	= ./Libft
@@ -26,7 +27,8 @@ CUT = "\033[K"
 OBJECTS = $(SOURCES:.c=.o)
 
 %.o: %.c
-	$(CC) -Wall -Werror -Wextra $(INC) -o $@ -c $<
+	$(CC) -Wall -Werror -Wextra $(CPPFLAGS) $(INC) -o $@ -c $<
+	@echo $(G) .
 
 all: $(NAME)
 	@printf $(G)"                                               \n";
@@ -38,7 +40,7 @@ all: $(NAME)
 	@echo $(B)"                       by @nschumac & @jsiller ";
 
 $(NAME): $(LIBFT_NAME) $(OBJECTS)
-	@$(CC) $(CFLAGS) $(OBJECTS) -o $@
+	@$(CC) $(CFLAGS) $(LFLAGS) $(OBJECTS) -o $@
 
 $(LIBFT_NAME):
 	@echo $(Y)Compiling $(B)libft $(Y)...
