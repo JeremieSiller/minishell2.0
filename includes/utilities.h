@@ -1,7 +1,7 @@
 #ifndef UTILITIES_H
 # define UTILITIES_H
 
-# include "minishell.h"
+# include <minishell.h>
 
 
 

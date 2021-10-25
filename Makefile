@@ -3,16 +3,16 @@ CC = gcc
 LDFLAGS		= -L/Users/$(USER)/.brew/opt/readline/lib
 CPPFLAGS	= -I/Users/$(USER)/.brew/opt/readline/include
 
-CFLAGS		= -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -L libft/ -lft -Wall -Werror -Wextra -o 
-CFLAGS		+= CPPFLAGS
-CFLAGS		+= LDFLAGS
-CFLAGS		+= -I./libft
+INC			= -I./Libft -I./includes
+
+CFLAGS		= -lreadline $(LDFLAGS) $(CPPFLAGS) $(INC) -L Libft/ -lft -Wall -Werror -Wextra
+
 
 NAME		= minishell
-LIB_PATH	= ./libft
-LIBFT_NAME	= ./libft/libft.a
+LIB_PATH	= ./Libft
+LIBFT_NAME	= ./Libft/libft.a
 
-SOURCES =	main.c																\
+SOURCES =	sources/main.c																\
 
 #COLORS
 Y = "\033[33m"
@@ -26,8 +26,7 @@ CUT = "\033[K"
 OBJECTS = $(SOURCES:.c=.o)
 
 %.o: %.c
-	@echo $(G) "."
-	@$(CC) -Wall -Werror -Wextra -I./libft -o $@ -c $<
+	$(CC) -Wall -Werror -Wextra $(INC) -o $@ -c $<
 
 all: $(NAME)
 	@printf $(G)"                                               \n";
@@ -38,7 +37,7 @@ all: $(NAME)
 	@echo $(G)" \`-----' \`-----' \`------' \`----' \`-------'";
 	@echo $(B)"                       by @nschumac & @jsiller ";
 
-$(NAME): $(OBJECTS) $(LIBFT_NAME)
+$(NAME): $(LIBFT_NAME) $(OBJECTS)
 	@$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
 $(LIBFT_NAME):
