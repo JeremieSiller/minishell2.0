@@ -5,7 +5,6 @@
 
 void	parse(char *str)
 {
-	//helo
 }
 
 
