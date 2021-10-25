@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/25 22:35:59 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/25 22:43:57 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <readline/readline.h>
+# include <libft.h>
 
 typedef struct s_redirect
 {
