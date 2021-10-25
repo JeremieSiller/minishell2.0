@@ -9,6 +9,8 @@ int	main(int argc, char *argv[], char **env)
 
 	t_cmds *list = parse(str);
 
+
+
 	while (list)
 	{
 		
