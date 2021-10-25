@@ -27,6 +27,7 @@ CUT = "\033[K"
 OBJECTS = $(SOURCES:.c=.o)
 
 %.o: %.c
+	@echo HELLO
 	$(CC) -Wall -Werror -Wextra $(CPPFLAGS) $(INC) -o $@ -c $<
 	@echo $(G) .
 
@@ -40,7 +41,7 @@ all: $(NAME)
 	@echo $(B)"                       by @nschumac & @jsiller ";
 
 $(NAME): $(LIBFT_NAME) $(OBJECTS)
-	@$(CC) $(CFLAGS) $(LFLAGS) $(OBJECTS) -o $@
+	@$(CC) $(OBJECTS) $(CFLAGS) $(LFLAGS) -o $@
 
 $(LIBFT_NAME):
 	@echo $(Y)Compiling $(B)libft $(Y)...
@@ -77,4 +78,4 @@ fclean:
 re: fclean all
 
 val:
-	docker run -ti -v $(PWD):/test memory-test:0.1 bash
+	docker run -ti -v $(PWD):/test memory-test:0.1 bash && cd test

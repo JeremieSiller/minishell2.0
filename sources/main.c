@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/25 22:36:12 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/25 22:47:17 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,13 @@
 int	main(int argc, char *argv[], char **env)
 {
 
-	char *str = readline(">");
+	char *str;
+
+	while (1)
+	{
+		str = readline(">>");
+	}
+		
 
 	// t_cmds *list = parse(str);
 
