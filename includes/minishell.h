@@ -6,6 +6,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <readline/readline.h>
 
 typedef struct s_redirect
 {
