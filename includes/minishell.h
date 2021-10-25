@@ -13,7 +13,7 @@ typedef struct s_redirect
 	char	*path;
 }	t_redirect;
 
-typedef struct s_list
+typedef struct s_cmds
 {
 	char			**cmd;
 	bool			read;
@@ -23,9 +23,9 @@ typedef struct s_list
 	int				exit_status;
 	t_redirect		*in_dir;
 	t_redirect		*out_dir;
-	struct s_list	*previous;
-	struct s_list	*next;
-}	t_list;
+	struct s_cmds	*previous;
+	struct s_cmds	*next;
+}	t_cmds;
 
 
 #endif
