@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 22:36:08 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/25 22:36:08 by jsiller          ###   ########.fr       */
+/*   Created: 2021/10/25 22:38:44 by nschumac          #+#    #+#             */
+/*   Updated: 2021/10/25 22:38:45 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
+#include <parser.h>
 
 int	double_qoutes(char *str, int *cnt)
 {
