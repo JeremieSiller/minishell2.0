@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:38:44 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 02:28:29 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 03:28:03 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,12 @@ static int	parse_space(char **strbuf, t_cmds *cur, int *fc)
 	return (0);
 }
 
-t_cmds	*parse(char *str)
+t_cmds	*parse(char *str, t_cmds *cur)
 {	
 	char	*strbuf;
-	t_cmds	*cur;
 	int		fc;
 
-	cur = NULL;
 	strbuf = NULL;
-	if (append_list(&cur))
-		return (NULL);
 	while (str && *(str))
 	{
 		fc = 0;
@@ -45,7 +41,7 @@ t_cmds	*parse(char *str)
 			&& parse_endcommands(&str, &strbuf, &cur, &fc))
 			return ((void *)(size_t)clear_list(cur, 0));
 		else if (ft_strchr(REDIRECTIONS, *str)
-			&& parse_redirections(&str, &strbuf, cur, &fc))
+			&& parse_redirections(&str, &strbuf, &cur, &fc))
 			return ((void *)(size_t)clear_list(cur, 0));
 		else if (!fc && char_append(&strbuf, *str))
 			return ((void *)(size_t)clear_list(cur, 0));
