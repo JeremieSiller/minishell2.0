@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:38:44 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 19:12:58 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 21:12:04 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@ static int	parse_space(char **strbuf, t_cmds *cur, int *fc)
 
 int	check_input(char *str)
 {
+	int	scope;
+
+	scope = 0;
 	if (!str)
 		return (1);
 	while (*str)
 	{
-		if (ft_strchr(ENDCOMMAND, *str))
+		if (ft_strchr(ENDCOMMAND, *str) && *str != '(')
 		{
 			str++;
 			if ((*(str) == '|' && *(str - 1) == '|') ||
@@ -54,12 +57,18 @@ int	check_input(char *str)
 				return (1);	
 			str--;
 		}
+		else if (*str == '(')	
+			scope++;
+		else if (*str == ')')
+			scope--;
 		str++;
 	}
+	if (scope != 0)
+		return (1);
 	return 0;
 }
 
-t_cmds	*parse(char *str, t_cmds *cur)
+t_cmds	*parse(char *str, t_cmds *cur, char *argv)
 {	
 	char	*strbuf;
 	int		fc;
@@ -73,7 +82,7 @@ t_cmds	*parse(char *str, t_cmds *cur)
 		else if (*str == ' ' && parse_space(&strbuf, cur, &fc))
 			return ((void *)(size_t)clear_list(cur, 0));
 		else if (ft_strchr(ENDCOMMAND, *str)
-			&& parse_endcommands(&str, &strbuf, &cur, &fc))
+			&& parse_endcommands(&str, &strbuf, &cur, &fc, argv))
 			return ((void *)(size_t)clear_list(cur, 0));
 		else if (ft_strchr(REDIRECTIONS, *str)
 			&& parse_redirections(&str, &strbuf, &cur, &fc))

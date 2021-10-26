@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/26 19:18:56 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 20:46:58 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char *argv[], char **env)
 			cmds = NULL;
 			if (append_list(&cmds))
 				return (1);
-			cmds = parse(str, cmds);
+			cmds = parse(str, cmds, argv[0]);
 			if (!cmds)
 				return (1);
 			head = cmds;
