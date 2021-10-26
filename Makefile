@@ -22,6 +22,8 @@ SOURCES =	sources/main.c																\
 			sources/utilities/utilities_list_2.c										\
 			sources/utilities/utilities_string.c										\
 			sources/execute/execute.c													\
+			sources/utilities/utils.c													\
+			sources/execute/cmd_find.c
 
 #COLORS
 Y = "\033[33m"
@@ -79,7 +81,7 @@ fclean:
 	@sleep 0.2
 	@echo $(G)libft cleaned
 	@sleep 0.2
-	@echo $(G)fclean done
+	@echo $(G)fclean done $(X)
 
 
 re: fclean all

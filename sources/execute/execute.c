@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
+/*   Updated: 2021/10/27 00:35:52 by jsiller          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 #include <execute.h>
 
@@ -5,7 +17,7 @@ extern char **environ;
 
 static void	child(t_execute *exec, t_cmds *data)
 {
-
+	char	*str;
 	if (data->read == 1 && dup2(exec->s_fd, 0) == -1)
 	{
 		ft_putstr_fd("Dup error\n", 2);
@@ -29,9 +41,12 @@ static void	child(t_execute *exec, t_cmds *data)
 	close(exec->fd[0]);
 	close(exec->fd[1]);
 	close(exec->s_fd);
+	find_command(data->cmd[0], &str, environ);
 	ft_lstclear(&(exec->lst), free);
-	execve(data->cmd[0], data->cmd, environ);
-	ft_putstr_fd("some error\n", 2);
+	execve(str, data->cmd, environ);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd(": cmd not found", 2);
 	exit(1);
 }
 

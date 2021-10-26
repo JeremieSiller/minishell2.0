@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/26 23:37:02 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 00:30:02 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <libft.h>
+# include <sys/stat.h>
 
 # define OPERATORS_NONE 0
 # define OPERATORS_OR 1
