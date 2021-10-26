@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/25 22:35:59 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/25 23:33:59 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <readline/readline.h>
+# include <libft.h>
+
+# define ALL 0
+# define AND 1
+# define OR 2
+
 
 typedef struct s_redirect
 {
