@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:26 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 02:59:19 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 18:19:09 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	parse_or(char **str, char **strbuf, t_cmds **cur)
 	return (0);
 }
 
-static int	parse_and(char **str, char **strbuf, t_cmds **cur)	
+static int	parse_and(char **str, char **strbuf, t_cmds **cur)
 {
 	if (*strbuf)
 	{

@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:27 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 03:44:10 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 19:23:41 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	free_node(t_cmds *node)
 			free(node->cmd[cnt - 1]);
 		free(node->cmd);
 	}
-	
 	if (node->in_dir)
 	{
 		if (node->in_dir->path)

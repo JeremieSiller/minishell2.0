@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:38:44 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 03:28:03 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 19:12:58 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,41 @@ static int	parse_space(char **strbuf, t_cmds *cur, int *fc)
 		return (1);
 	*strbuf = NULL;
 	return (0);
+}
+
+int	check_input(char *str)
+{
+	if (!str)
+		return (1);
+	while (*str)
+	{
+		if (ft_strchr(ENDCOMMAND, *str))
+		{
+			str++;
+			if ((*(str) == '|' && *(str - 1) == '|') ||
+				(*(str) == '&' && *(str - 1) == '&'))
+				str++;
+			while (*str && *str == ' ')
+				str++;
+			if (ft_strchr(ENDCOMMAND, *str) || *str == 0)
+				return (1);
+			str--;
+		}
+		else if (ft_strchr(REDIRECTIONS, *str))	
+		{
+			str++;
+			if ((*(str) == '>' && *(str - 1) == '>') ||
+				(*(str) == '<' && *(str - 1) == '<'))
+				str++;
+			while (*str && *str == ' ')
+				str++;
+			if (ft_strchr(ENDCOMMAND, *str) || ft_strchr(REDIRECTIONS, *str) || *str == 0)
+				return (1);	
+			str--;
+		}
+		str++;
+	}
+	return 0;
 }
 
 t_cmds	*parse(char *str, t_cmds *cur)
