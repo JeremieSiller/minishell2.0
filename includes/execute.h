@@ -15,5 +15,6 @@ typedef struct	s_execute
 	int			s_in;
 }	t_execute;
 
+int	find_command(char *arg, char **str, char **env);
 
 #endif

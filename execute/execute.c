@@ -119,7 +119,7 @@ unsigned char	execute(t_cmds *data, unsigned int scope)
 int	main(void)
 {
 	char **ls = ft_split("/bin/ls -l", ' ');
-	char **cat = ft_split("/usr/bin/grep a", ' ');
+	char **cat = ft_split("/bin/cat", ' ');
 	t_cmds	*head = calloc(sizeof(*head), 1);
 	//head->scope = 0;
 	head->read = 0;
