@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/25 22:43:57 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 02:32:13 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <libft.h>
+
+# define OPERATORS_NONE 0
+# define OPERATORS_OR 1
+# define OPERATORS_AND 2
 
 typedef struct s_redirect
 {

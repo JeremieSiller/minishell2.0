@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:04 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/25 23:49:27 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 02:51:22 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 */
 
 int		clear_list(t_cmds *node, int ret);
-int		append_list(t_cmds *node);
+int		append_list(t_cmds **node);
 t_cmds	*delete_node(t_cmds *node);
 t_cmds	*find_listhead(t_cmds *node);
+t_cmds	*find_last(t_cmds *node);
 
 /*
 ** list functions
@@ -33,7 +34,8 @@ t_cmds	*find_listhead(t_cmds *node);
 */
 
 int		char_append(char **str, char c);
-int		string_append(char ***org, char *str);
+int		dstring_append(char ***org, char *str);
+int		string_append(char **org, char *str);
 
 /*
 ** string functions

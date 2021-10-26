@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:27 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/25 23:12:27 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 02:44:07 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	free_node(t_cmds *node)
 			free(node->cmd[cnt - 1]);
 		free(node->cmd);
 	}
+	
 	if (node->in_dir)
 		free(node->in_dir);
 	if (node->out_dir)
@@ -32,7 +33,6 @@ static void	free_node(t_cmds *node)
 int	clear_list(t_cmds *node, int ret)
 {
 	t_cmds	*buf;
-	int		cnt;
 
 	while (node->previous != NULL)
 		node = node->previous;
@@ -45,17 +45,23 @@ int	clear_list(t_cmds *node, int ret)
 	return (ret);
 }
 
-int	append_list(t_cmds *node)
+int	append_list(t_cmds **node)
 {
 	t_cmds	*buf;
 
-	while (node->next)
-		node = node->next;
+	while (*node && (*node)->next)
+		*node = (*node)->next;
 	buf = (t_cmds *)ft_calloc(1, sizeof(t_cmds));
 	if (!buf)
 		return (1);
-	node->next = buf;
-	buf->previous = node;
+	if (!(*node))
+	{
+		*node = buf;
+		return (0);
+	}
+	(*node)->next = buf;
+	buf->previous = *node;
+	*node = buf;
 	return (0);
 }
 

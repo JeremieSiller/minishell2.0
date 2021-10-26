@@ -27,7 +27,7 @@ int	char_append(char **str, char c)
 {
 	char	*buf;
 	int		cnt;
-	buf = (char *)malloc(strrlen(str) + 2);
+	buf = (char *)malloc(strrlen(*str) + 2);
 	if (!buf)
 		return (1);
 	cnt = 0;
@@ -44,7 +44,7 @@ int	char_append(char **str, char c)
 	return (0);
 }
 
-int	string_append(char ***org, char *str)
+int	dstring_append(char ***org, char *str)
 {
 	char	**buf;
 	int		cnt;
@@ -60,6 +60,34 @@ int	string_append(char ***org, char *str)
 	}
 	buf[cnt] = str;
 	buf[cnt + 1] = NULL;
+	if (*org)
+		free(*org);
+	*org = buf;
+	return (0);
+}
+
+int	string_append(char **org, char *str)
+{
+	char	*buf;
+	int		cnt;
+	int		cnt2;
+
+	buf = (char *)ft_calloc(1, strrlen(*org) + strrlen(str) + 2);
+	if (!buf)
+		return (1);
+	cnt = 0;
+	cnt2 = 0;
+	while (*org && (*org)[cnt])
+	{
+		buf[cnt] = (*org)[cnt];
+		cnt++;
+	}
+	cnt2 = cnt;
+	while (str && str[cnt - cnt2])
+	{
+		buf[cnt] = str[cnt - cnt2];
+		cnt++;	
+	}
 	if (*org)
 		free(*org);
 	*org = buf;
