@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/25 23:33:59 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/26 14:09:48 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@
 # include <readline/readline.h>
 # include <libft.h>
 
-# define ALL 0
-# define AND 1
-# define OR 2
+# define OPERATORS_NONE 0
+# define OPERATORS_OR 1
+# define OPERATORS_AND 2
 
-
-typedef struct s_redirect
+typedef struct	s_redirect
 {
 	bool	type;
 	char	*path;
 }	t_redirect;
 
-typedef struct s_cmds
+typedef struct	s_cmds
 {
 	char			**cmd;
 	bool			read;
@@ -45,6 +44,5 @@ typedef struct s_cmds
 	struct s_cmds	*previous;
 	struct s_cmds	*next;
 }	t_cmds;
-
 
 #endif

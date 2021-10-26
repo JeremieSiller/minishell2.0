@@ -14,6 +14,13 @@ LIB_PATH	= ./Libft
 LIBFT_NAME	= ./Libft/libft.a
 
 SOURCES =	sources/main.c																\
+			sources/parser/parser.c														\
+			sources/parser/parse_redirections.c											\
+			sources/parser/parse_endstring.c											\
+			sources/parser/parse_endcommand.c											\
+			sources/utilities/utilities_list.c											\
+			sources/utilities/utilities_list_2.c										\
+			sources/utilities/utilities_string.c										\
 
 #COLORS
 Y = "\033[33m"
