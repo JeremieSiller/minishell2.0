@@ -6,6 +6,8 @@
 
 #pragma once
 
+unsigned char	execute(t_cmds *data, unsigned int scope);
+
 typedef struct	s_execute
 {
 	t_list		*lst;

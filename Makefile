@@ -21,6 +21,7 @@ SOURCES =	sources/main.c																\
 			sources/utilities/utilities_list.c											\
 			sources/utilities/utilities_list_2.c										\
 			sources/utilities/utilities_string.c										\
+			sources/execute/execute.c													\
 
 #COLORS
 Y = "\033[33m"
@@ -34,7 +35,7 @@ CUT = "\033[K"
 OBJECTS = $(SOURCES:.c=.o)
 
 %.o: %.c
-	@$(CC) -Wall -Werror -Wextra $(CPPFLAGS) $(INC) -o $@ -c $<
+	@$(CC)  $(CPPFLAGS) $(INC) -o $@ -c $<
 
 all: $(NAME)
 	@printf $(G)"                                               \n";

@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:26 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 21:07:03 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 23:51:00 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static int	parse_pipe(char **strbuf, t_cmds **cur)
 		(*cur)->write = true;
 	if ((*cur)->cmd && append_list(cur))
 		return (1);
+	(*cur)->read = true;
 	return (0);
 }
 

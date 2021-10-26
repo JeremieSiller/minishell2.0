@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:38:44 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 21:12:04 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 00:06:34 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_input(char *str)
 				str++;
 			while (*str && *str == ' ')
 				str++;
-			if (ft_strchr(ENDCOMMAND, *str) || *str == 0)
+			if ((ft_strchr(ENDCOMMAND, *str) && *str != '(' ) || *str == 0)
 				return (1);
 			str--;
 		}
