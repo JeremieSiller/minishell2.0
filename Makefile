@@ -34,9 +34,7 @@ CUT = "\033[K"
 OBJECTS = $(SOURCES:.c=.o)
 
 %.o: %.c
-	@echo HELLO
-	$(CC) -Wall -Werror -Wextra $(CPPFLAGS) $(INC) -o $@ -c $<
-	@echo $(G) .
+	@$(CC) -Wall -Werror -Wextra $(CPPFLAGS) $(INC) -o $@ -c $<
 
 all: $(NAME)
 	@printf $(G)"                                               \n";
@@ -46,6 +44,7 @@ all: $(NAME)
 	@echo $(G)"'  '--'\'  '-'  '|  '--' //'-'  ||  '--'  /    ";
 	@echo $(G)" \`-----' \`-----' \`------' \`----' \`-------'";
 	@echo $(B)"                       by @nschumac & @jsiller ";
+	@echo $(X);
 
 $(NAME): $(LIBFT_NAME) $(OBJECTS)
 	@$(CC) $(OBJECTS) $(CFLAGS) $(LFLAGS) -o $@

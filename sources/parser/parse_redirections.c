@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:35 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 03:40:47 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/26 18:20:09 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@
 
 static int	parse_heredoc(char **str, char **strbuf, t_cmds **cur)
 {
-	(void)strbuf;
+	if (*strbuf)
+	{
+		if (dstring_append(&(*cur)->cmd, *strbuf))
+			return (1);
+		*strbuf = NULL;
+	}
 	(*str) += 2;
 	while (**str == ' ')
 		(*str)++;
@@ -33,8 +38,7 @@ static int	parse_heredoc(char **str, char **strbuf, t_cmds **cur)
 			return (1);
 		(*str)++;
 	}
-	if (append_list(cur))
-		return (1);
+	(*str)--;
 	return (0);
 }
 
@@ -52,7 +56,6 @@ static int	parse_rightheredoc(char **str, char **strbuf, t_cmds **cur)
 	(void)strbuf;
 	(void)cur;
 	return (0);
-	
 }
 
 static int	parse_rightfile(char **str, char **strbuf, t_cmds **cur)
@@ -61,17 +64,11 @@ static int	parse_rightfile(char **str, char **strbuf, t_cmds **cur)
 	(void)strbuf;
 	(void)cur;
 	return (0);
-	
 }
 
 int parse_redirections(char **str, char **strbuf, t_cmds **cur, int *fc)
 {
 	*fc = 1;
-
-	if (*strbuf)
-		free(*strbuf);
-	*strbuf = NULL;
-
 	if (**str == '<')
 	{
 		(*cur)->in_dir = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
@@ -92,6 +89,5 @@ int parse_redirections(char **str, char **strbuf, t_cmds **cur, int *fc)
 		else
 			return (parse_rightfile(str, strbuf, cur));	
 	}
-
 	return (0);
 }
