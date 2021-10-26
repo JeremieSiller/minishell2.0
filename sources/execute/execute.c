@@ -115,21 +115,3 @@ unsigned char	execute(t_cmds *data, unsigned int scope)
 	ft_lstclear(&exec.lst, free);
 	return (0);
 }
-
-int	main(void)
-{
-	char **ls = ft_split("/bin/ls -l", ' ');
-	char **cat = ft_split("/bin/cat", ' ');
-	t_cmds	*head = calloc(sizeof(*head), 1);
-	//head->scope = 0;
-	head->read = 0;
-	head->write = 1;
-	head->cmd = ls;
-	head->next		= calloc(sizeof(*head), 1);
-	//head->next->scope		= 0;
-	head->next->read = 1;
-	head->next->write = 0;
-	head->next->cmd = cat;
-	head->next->next = 0;
-	execute(head, 0);
-}

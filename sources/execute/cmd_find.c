@@ -68,4 +68,4 @@
 // 		i++;
 // 	}
 // 	return (ft_check_if_path_is_given(path, arg, str, data));
-}
+// }
