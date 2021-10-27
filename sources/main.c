@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 12:49:22 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 21:07:14 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,14 @@
 #include <parser.h>
 #include <utilities.h>
 #include <execute.h>
-
-void signalg(int sigtype)
-{
-	if (sigtype == SIGINT)
-	{
-		write(1, "\rminishell-2.0$   \n", 20);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
+#include <signals.h>
 
 int	main(int argc, char *argv[], char **env)
 {
-	// int fd = open(ttyname(1), O_RDWR);
-	// printf("%i %s %i", isatty(1), ttyname(1), ttyslot());
-	// ft_putstr_fd("df", 1);
-	// char buf[200];
-	// read(fd, buf, 10);
-	
-
 	char	*str;
 	t_cmds	*cmds;
 
-	signal(SIGINT, signalg);
+	signal(SIGQUIT, SIG_IGN);
 	if (argc == 2)
 	{
 		cmds = NULL;
@@ -48,12 +32,12 @@ int	main(int argc, char *argv[], char **env)
 	}
 	while (1)
 	{
-		str = readline("minishell-2.0$ ");
-		if (str == NULL)
-		{
-			write(1, "\033[A\rminishell-2.0$ exit\n", 25);
+		signal(SIGINT, gsignal_ctlc);
+		changetermios(false);
+		str = readline("minishell-2.0$ \x1b[s");
+		changetermios(false);
+		if (str == NULL && write(1, "\x1b[uexit\n", 9) && !changetermios(true))
 			exit(1);
-		}
 		if (!check_input(str))
 		{
 			cmds = NULL;

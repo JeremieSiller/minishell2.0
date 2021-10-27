@@ -24,6 +24,7 @@ SOURCES =	sources/main.c																\
 			sources/execute/execute.c													\
 			sources/utilities/utils.c													\
 			sources/execute/cmd_find.c													\
+			sources/signals/signals.c													\
 			sources/builtins/echo.c
 
 #COLORS

@@ -6,21 +6,24 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 18:19:48 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 20:21:55 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parser.h>
 #include <utilities.h>
 
+
+// IS NOT CORRECTLY PARSED STILL NEED TO FIGURE SHIT OUT
 static int	parse_variable(char **str, char **strbuf)
 {
 	char	*var_name;
 
 	var_name = NULL;
 	(*str)++;
-	while (!ft_strchr(REDIRECTIONS, **str) && !ft_strchr(ENDSTRING, **str)
-		&& !ft_strchr(ENDCOMMAND, **str))
+	if (ft_strchr("\'\"", **str) && (*str)--)
+		return (0);
+	while (ft_strchr(VARIABLE_CHARS, **str) && **str)
 	{
 		if (char_append(&var_name, **str))
 			return (1);
@@ -32,7 +35,6 @@ static int	parse_variable(char **str, char **strbuf)
 		//GET ACTUAL VALUE OF ENV VAR
 		if (string_append(strbuf, var_name))
 			return (1);
-		free(var_name);
 	}
 	else if (char_append(strbuf, **str))
 		return (1);

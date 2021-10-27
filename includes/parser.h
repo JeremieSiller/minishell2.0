@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:02 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/26 20:58:44 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 20:19:29 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define ENDSTRING "\"\'$"
 # define ENDCOMMAND "&|("
 # define HEREDOCEND " |&"
+# define VARIABLE_CHARS "_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 t_cmds	*parse(char *str, t_cmds *cur, char *argv);
 
