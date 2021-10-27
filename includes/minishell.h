@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 00:30:02 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 01:14:04 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <libft.h>
 # include <sys/stat.h>
+# include <sys/ioctl.h>
 
 # define OPERATORS_NONE 0
 # define OPERATORS_OR 1

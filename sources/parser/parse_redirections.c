@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:35 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 18:20:09 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 00:55:17 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ int parse_redirections(char **str, char **strbuf, t_cmds **cur, int *fc)
 	*fc = 1;
 	if (**str == '<')
 	{
-		(*cur)->in_dir = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
+		if (!(*cur)->in_dir)
+			(*cur)->in_dir = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
+		else
+			free((*cur)->in_dir->path);
+		(*cur)->in_dir->path = NULL;
 		if (!(*cur)->in_dir)
 			return (1);
 		if (*((*str) + 1) == '<')
