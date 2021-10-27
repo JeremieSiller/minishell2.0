@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 03:09:17 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 17:49:40 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <execute.h>
+#include <signals.h>
 
 extern char **environ;
 
 static void	child(t_execute *exec, t_cmds *data)
 {
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	char	*str;
 	if (data->read == 1 && dup2(exec->s_fd, 0) == -1)
 	{
@@ -59,6 +62,7 @@ void	ft_wait(void *pid)
 
 static void	parent(t_execute *exec, t_cmds *data)
 {
+	signal(SIGINT, fsignal_ctlc);
 	if (exec->s_fd != -1)
 		close(exec->s_fd);
 	close(exec->fd[1]);

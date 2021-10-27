@@ -23,7 +23,8 @@ SOURCES =	sources/main.c																\
 			sources/utilities/utilities_string.c										\
 			sources/execute/execute.c													\
 			sources/utilities/utils.c													\
-			sources/execute/cmd_find.c
+			sources/execute/cmd_find.c													\
+			sources/signals/signals.c													\
 
 #COLORS
 Y = "\033[33m"
