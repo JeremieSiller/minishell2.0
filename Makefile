@@ -60,12 +60,11 @@ all: $(NAME)
 
 $(NAME): $(LIBFT_NAME) $(OBJECTS)
 	@$(CC) $(OBJECTS) $(CFLAGS) $(LFLAGS) -o $@
+	@echo "42-minishell" >> $(NAME)
 
 $(LIBFT_NAME):
-	@echo $(Y)Compiling $(B)libft $(Y)...
+	@echo $(Y)Compiling $(B)libft $(Y)...$(G)
 	@make -C $(LIB_PATH)
-	@echo $(G)libft compiled
-	@sleep 0.2
 
 clean:
 	@echo $(Y)removing object-files...
