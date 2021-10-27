@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 02:55:13 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 12:49:22 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ void signalg(int sigtype)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-}
-
-int ft_putchar(char *c)
-{
-	write (1, &c, 1);
 }
 
 int	main(int argc, char *argv[], char **env)

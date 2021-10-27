@@ -23,7 +23,8 @@ SOURCES =	sources/main.c																\
 			sources/utilities/utilities_string.c										\
 			sources/execute/execute.c													\
 			sources/utilities/utils.c													\
-			sources/execute/cmd_find.c
+			sources/execute/cmd_find.c													\
+			sources/builtins/echo.c
 
 #COLORS
 Y = "\033[33m"
@@ -37,7 +38,7 @@ CUT = "\033[K"
 OBJECTS = $(SOURCES:.c=.o)
 
 %.o: %.c
-	@$(CC)  $(CPPFLAGS) $(INC) -o $@ -c $<
+	@$(CC)  $(CPPFLAGS) -Wall -Wextra -Wall $(INC) -o $@ -c $<
 
 all: $(NAME)
 	@printf $(G)"                                               \n";

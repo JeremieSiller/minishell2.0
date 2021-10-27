@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 03:09:17 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 12:51:00 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ unsigned char	execute(t_cmds *data)
 								ft_putstr_fd("Got a null pointer, something went wrong\n", 2);
 								return (1);
 							}
-	int status = 0;
 	exec.s_fd = -1;
 	exec.lst = 0;
 	exec.s_in = dup(0);
