@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 02:51:26 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 03:09:17 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,18 @@ unsigned char	execute(t_cmds *data)
 			parent(&exec, data);
 		}
 		data = data->next;
-		while (data && data->previous->operators == OPERATORS_AND && exec.exit != 0)
+		if (data && data->previous->operators == OPERATORS_AND && exec.exit != 0)
+		{
 			data = data->next;
+			while (data && (data->previous->operators != OPERATORS_OR))
+				data = data->next;
+		}
 		while (data && data->previous->operators == OPERATORS_OR && exec.exit == 0)
+		{
 			data = data->next;
+			while (data && (data->previous->operators != OPERATORS_AND))
+				data = data->next;
+		}
 	}
 	close(exec.s_fd);
 	ft_lstiter(exec.lst, ft_wait);
