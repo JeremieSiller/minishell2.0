@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 21:12:45 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 22:12:46 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	ft_wait(void *pid)
 
 static void	parent(t_execute *exec, t_cmds *data)
 {
-	signal(SIGINT, fsignal_ctlc);
+	if (!ft_strnstr(data->cmd[0], "/minishell", 12))
+		signal(SIGINT, fsignal_ctlc);
+	else
+		signal(SIGINT, SIG_IGN);
 	if (exec->s_fd != -1)
 		close(exec->s_fd);
 	close(exec->fd[1]);
