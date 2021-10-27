@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 21:12:16 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 21:57:49 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,5 @@ int	main(int argc, char *argv[], char **env)
 		free(str);
 	}
 	return (0);
-	(void)argc;
-	(void)argv;
 	(void)env;
 }

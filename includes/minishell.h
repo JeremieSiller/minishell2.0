@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 19:08:54 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:21:12 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ typedef struct	s_cmds
 	struct s_cmds	*previous;
 	struct s_cmds	*next;
 }	t_cmds;
+
+char	**g_ourenv;
 
 #endif
