@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 02:44:15 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 02:55:13 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char *argv[], char **env)
 			if (append_list(&cmds))
 				return (1);
 		cmds = parse(argv[1], cmds, argv[0]);
-		return execute(cmds, 0);
+		return execute(cmds);
 	}
 	while (1)
 	{
@@ -67,7 +67,7 @@ int	main(int argc, char *argv[], char **env)
 			cmds = parse(str, cmds, argv[0]);
 			if (!cmds)
 				return (1);
-			execute(cmds, 0);
+			execute(cmds);
 			clear_list(cmds, 0);
 		}
 		else
