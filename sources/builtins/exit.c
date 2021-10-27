@@ -1,42 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 12:39:27 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 21:23:28 by jsiller          ###   ########.fr       */
+/*   Created: 2021/10/27 21:22:45 by jsiller           #+#    #+#             */
+/*   Updated: 2021/10/27 22:21:26 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <minishell.h>
 
-int	bt_echo(char **argv)
-{
-	bool	nl;
 
-	if (!argv || !argv[0])
-	{
-		ft_putstr_fd("Echo input error\n", 2);
-		return (1);
-	}
-	nl = 0;
+int	bt_exit(char **argv)
+{
+	ft_putstr_fd("exit\n", 1);
 	argv++;
-	if (argv[0] && !ft_strncmp(argv[0], "-n", 3))
-	{
-		nl = 1;
-		argv++;
-	}
-	while (*argv)
-	{
-		ft_putstr_fd(*argv, 1);
-		argv++;
-		if (*argv)
-			ft_putchar_fd(' ', 1);
-	}
-	if (nl == 0)
-		ft_putchar_fd('\n', 1);
-	return (0);
+	if (!argv)
+		exit(0);
+	exit(ft_atoi(*argv));
 }
+// need to handle errors (too many arguements/ non numeric arguements)
