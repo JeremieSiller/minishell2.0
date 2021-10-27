@@ -16,6 +16,7 @@ LIBFT_NAME	= ./Libft/libft.a
 SOURCES =	sources/main.c																\
 			sources/parser/parser.c														\
 			sources/parser/parse_redirections.c											\
+			sources/parser/parse_redirections_2.c										\
 			sources/parser/parse_endstring.c											\
 			sources/parser/parse_endcommand.c											\
 			sources/utilities/utilities_list.c											\
