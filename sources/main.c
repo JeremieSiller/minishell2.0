@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 17:52:05 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:07:14 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int	main(int argc, char *argv[], char **env)
 	while (1)
 	{
 		signal(SIGINT, gsignal_ctlc);
-		str = readline("minishell-2.0$ ");
-		if (str == NULL && write(1, "\x1b[A\rminishell-2.0$ exit\n", 25))
+		changetermios(false);
+		str = readline("minishell-2.0$ \x1b[s");
+		changetermios(false);
+		if (str == NULL && write(1, "\x1b[uexit\n", 9) && !changetermios(true))
 			exit(1);
 		if (!check_input(str))
 		{

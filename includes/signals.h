@@ -5,4 +5,5 @@
 
 void	gsignal_ctlc(int sigtype);
 void	fsignal_ctlc(int sigtype);
+int		changetermios(bool toggle);
 #endif

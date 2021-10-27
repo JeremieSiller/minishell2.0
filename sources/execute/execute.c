@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 17:52:13 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 20:04:38 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	child(t_execute *exec, t_cmds *data)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	changetermios(true);
 	char	*str;
 	if (data->read == 1 && dup2(exec->s_fd, 0) == -1)
 	{
