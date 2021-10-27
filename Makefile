@@ -25,8 +25,14 @@ SOURCES =	sources/main.c																\
 			sources/utilities/utils.c													\
 			sources/execute/cmd_find.c													\
 			sources/signals/signals.c													\
-			sources/builtins/echo.c
-
+			sources/builtins/echo.c														\
+			sources/builtins/cd.c														\
+			sources/builtins/env.c														\
+			sources/builtins/exit.c														\
+			sources/builtins/export.c													\
+			sources/builtins/unset.c													\
+			sources/builtins/pwd.c														\
+			
 #COLORS
 Y = "\033[33m"
 R = "\033[31m"

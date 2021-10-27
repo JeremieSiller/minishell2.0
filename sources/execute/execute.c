@@ -6,15 +6,42 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 21:12:45 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 21:35:30 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <execute.h>
 #include <signals.h>
+#include <builtins.h>
 
 extern char **environ;
+
+static const t_builtins	built_cmd[] = {
+	{"echo", &bt_echo},
+	{"cd", &bt_cd},
+	{"pwd", &bt_pwd},
+	{"export", &bt_export},
+	{"unset", &bt_unset},
+	{"env", &bt_env},
+	{"exit", &bt_exit},
+	{NULL, NULL}
+};
+
+static void	check_builtin(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (built_cmd[i].name)
+	{
+		if (!ft_strncmp(cmd[0], built_cmd[i].name, ft_strlen(built_cmd[i].name) + 1))
+		{
+			exit(built_cmd[i].func(cmd));
+		}
+		i++;
+	}
+}
 
 static void	child(t_execute *exec, t_cmds *data)
 {
@@ -45,6 +72,7 @@ static void	child(t_execute *exec, t_cmds *data)
 	close(exec->fd[0]);
 	close(exec->fd[1]);
 	close(exec->s_fd);
+	check_builtin(data->cmd);
 	find_command(data->cmd[0], &str, environ);
 	ft_lstclear(&(exec->lst), free);
 	execve(str, data->cmd, environ);
