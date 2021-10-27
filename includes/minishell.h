@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 01:14:04 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 12:49:53 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <libft.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>

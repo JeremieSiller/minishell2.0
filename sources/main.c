@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 17:51:05 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 17:52:05 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 #include <utilities.h>
 #include <execute.h>
 #include <signals.h>
-
-int ft_putchar(char *c)
-{
-	write (1, &c, 1);
-}
 
 int	main(int argc, char *argv[], char **env)
 {
