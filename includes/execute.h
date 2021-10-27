@@ -6,7 +6,8 @@
 
 #pragma once
 
-unsigned char	execute(t_cmds *data, unsigned int scope);
+unsigned char	execute(t_cmds *data);
+int				find_command(char *arg, char **str, char **env);
 
 typedef struct	s_execute
 {
@@ -15,8 +16,13 @@ typedef struct	s_execute
 	int			fd[2];
 	int			s_out;
 	int			s_in;
+	int			exit;
 }	t_execute;
 
-int	find_command(char *arg, char **str, char **env);
+typedef struct	s_pid 
+{
+	int	pid;
+	int	exit;
+} t_pid;
 
 #endif

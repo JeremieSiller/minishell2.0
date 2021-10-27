@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 00:37:55 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 01:26:10 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char *argv[], char **env)
 			if (append_list(&cmds))
 				return (1);
 		cmds = parse(argv[1], cmds, argv[0]);
-		return execute(cmds, 0);
+		return execute(cmds);
 	}
 	while (1)
 	{
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[], char **env)
 			cmds = parse(str, cmds, argv[0]);
 			if (!cmds)
 				return (1);
-			execute(cmds, 0);
+			execute(cmds);
 			clear_list(cmds, 0);
 		}
 		else

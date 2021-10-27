@@ -72,5 +72,4 @@ int	find_command(char *arg, char **str, char **env)
 	}
 	*str = arg;
 	return (0);
-	// return (ft_check_if_path_is_given(path, arg, str, data));
 }
