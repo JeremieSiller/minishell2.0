@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:27 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/27 22:53:27 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/28 16:40:01 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	clear_list(t_cmds *node, int ret)
 {
 	t_cmds	*buf;
 
-	while (node->previous != NULL)
+	while (node && node->previous != NULL)
 		node = node->previous;
 	while (node)	
 	{
@@ -102,7 +102,7 @@ t_cmds	*delete_node(t_cmds *node)
 
 t_cmds	*find_listhead(t_cmds *node)
 {
-	while (node->previous)
+	while (node && node->previous)
 		node = node->previous;
 	return (node);
 }
