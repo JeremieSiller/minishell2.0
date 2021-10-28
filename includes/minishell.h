@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 22:42:52 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/28 20:07:02 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@
 # define OPERATORS_OR 1
 # define OPERATORS_AND 2
 
-typedef struct	s_redirect
+typedef struct s_redirect
 {
 	bool	type;
 	char	*path;
 }	t_redirect;
 
-typedef struct	s_cmds
+typedef struct s_cmds
 {
 	char			**cmd;
 	bool			read;

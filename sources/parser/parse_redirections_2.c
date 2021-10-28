@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 22:26:08 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/27 23:06:59 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/28 20:21:37 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	parse_rightheredoc(char **str, t_cmds **cur)
 	int	last;
 
 	last = redirect_size((*cur)->out_dir) - 1;
-	(*cur)->out_dir[last]->type = true;	
+	(*cur)->out_dir[last]->type = true;
 	(*str) += 2;
 	while (**str == ' ')
 		(*str)++;
@@ -42,7 +42,7 @@ static int	parse_rightfile(char **str, t_cmds **cur)
 	int	last;
 
 	last = redirect_size((*cur)->out_dir) - 1;
-	(*cur)->out_dir[last]->type = false;	
+	(*cur)->out_dir[last]->type = false;
 	(*str) += 1;
 	while (**str == ' ')
 		(*str)++;
