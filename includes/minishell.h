@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 21:21:12 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 22:42:52 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct	s_cmds
 	int				scope;
 	int				operators;
 	int				exit_status;
-	t_redirect		*in_dir;
-	t_redirect		*out_dir;
+	t_redirect		**in_dir;
+	t_redirect		**out_dir;
 	struct s_cmds	*previous;
 	struct s_cmds	*next;
 }	t_cmds;

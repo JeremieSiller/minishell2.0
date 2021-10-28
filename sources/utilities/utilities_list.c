@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:27 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 19:23:41 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/27 22:53:27 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ static void	free_node(t_cmds *node)
 	}
 	if (node->in_dir)
 	{
-		if (node->in_dir->path)
-			free(node->in_dir->path);
+		cnt = 0;
+		while (++cnt && node->in_dir[cnt - 1])
+			free(node->in_dir[cnt - 1]);
 		free(node->in_dir);
 	}
 	if (node->out_dir)
 	{
-		if (node->in_dir->path)
-			free(node->in_dir->path);
+		cnt = 0;
+		while (++cnt && node->out_dir[cnt - 1])
+			free(node->out_dir[cnt - 1]);
 		free(node->out_dir);
 	}
 	free(node);

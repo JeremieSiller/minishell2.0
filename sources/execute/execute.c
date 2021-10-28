@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 22:58:19 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 16:28:13 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_wait(void *pid)
 
 static void	parent(t_execute *exec, t_cmds *data)
 {
-	if (!ft_strnstr(data->cmd[0], "/minishell", 12))
+	if (!our_minishell(data->cmd[0]))
 		signal(SIGINT, fsignal_ctlc);
 	else
 		signal(SIGINT, SIG_IGN);
