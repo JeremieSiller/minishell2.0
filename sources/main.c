@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 23:07:41 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/28 16:39:46 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ int	main(int argc, char *argv[], char **env)
 			cmds = parse(str, cmds, argv[0]);
 			if (!cmds)
 				return (1);
+			if (find_last(cmds)->cmd == NULL)
+				cmds = delete_node(find_last(cmds));
+			cmds = find_listhead(cmds);
 			execute(cmds);
 			clear_list(cmds, 0);
 		}
