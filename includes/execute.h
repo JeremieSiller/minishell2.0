@@ -6,8 +6,9 @@
 
 #pragma once
 
-unsigned char	execute(t_cmds *data);
-int				find_command(char *arg, char **str, char **env);
+# define PIPE_ERR 2
+# define MALLOC_ERR 3
+# define FORK_ERR 4
 
 typedef struct	s_execute
 {
@@ -24,5 +25,12 @@ typedef struct	s_pid
 	int	pid;
 	int	exit;
 } t_pid;
+
+unsigned char	execute(t_cmds *data);
+int				find_command(char *arg, char **str, char **env);
+void			ft_wait(void *pid);
+int				check_builtin(char **cmd);
+void			collect_garbage(t_execute *exec);
+int				execute_errors(int ret, t_execute *exec);
 
 #endif
