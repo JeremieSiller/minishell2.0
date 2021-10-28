@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 16:28:13 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 16:33:18 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static const t_builtins	built_cmd[] = {
 	{"unset", &bt_unset},
 	{"env", &bt_env},
 	{"exit", &bt_exit},
+	{"false", &bt_false},
+	{"true", &bt_true},
 	{NULL, NULL}
 };
 

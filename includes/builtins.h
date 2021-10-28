@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 17:49:22 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 21:33:53 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 16:32:42 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ int	bt_exit(char **argv);
 int	bt_export(char **argv);
 int	bt_unset(char **argv);
 int	bt_pwd(char **argv);
+int	bt_true(char **argv);
+int	bt_false(char **argv);
 #endif

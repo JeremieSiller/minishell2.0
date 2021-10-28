@@ -33,7 +33,8 @@ SOURCES =	sources/main.c																\
 			sources/builtins/export.c													\
 			sources/builtins/unset.c													\
 			sources/builtins/pwd.c														\
-			
+			sources/builtins/false.c													\
+			sources/builtins/true.c														\
 #COLORS
 Y = "\033[33m"
 R = "\033[31m"

@@ -6,12 +6,11 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 21:22:45 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 22:21:26 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 16:37:08 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 int	bt_exit(char **argv)
 {
