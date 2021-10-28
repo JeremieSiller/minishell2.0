@@ -32,5 +32,5 @@ void			ft_wait(void *pid);
 int				check_builtin(char **cmd);
 void			collect_garbage(t_execute *exec);
 int				execute_errors(int ret, t_execute *exec);
-
+void			check_operators(t_cmds **data, t_execute *exec);
 #endif

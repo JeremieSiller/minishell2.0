@@ -35,7 +35,8 @@ SOURCES =	sources/main.c																\
 			sources/builtins/pwd.c														\
 			sources/builtins/false.c													\
 			sources/builtins/true.c														\
-			sources/execute/execute_utils.c
+			sources/execute/execute_utils.c												\
+			sources/execute/execute_utils_2.c												\
 #COLORS
 Y = "\033[33m"
 R = "\033[31m"

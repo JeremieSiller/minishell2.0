@@ -6,13 +6,14 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 17:55:03 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 20:29:55 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <execute.h>
 #include <signals.h>
+#include <sys/errno.h>
 
 extern char **environ;
 
@@ -99,10 +100,15 @@ void	exec_main(t_cmds *data, t_execute *exec)
 		find_command(data->cmd[0], &str, environ);
 		ft_lstclear(&(exec->lst), free);
 		execve(str, data->cmd, environ);
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putendl_fd(": cmd not found", 2);
-		exit(127);
+		if (errno == 2)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(str, 2);
+			ft_putendl_fd(": cmd not found", 2);
+			exit(127);
+		}
+		perror(data->cmd[0]);
+		exit(errno);
 	}
 	else
 	{
@@ -162,17 +168,8 @@ unsigned char	execute(t_cmds *data)
 			if (ret != 0)
 				return (ret);
 		}
-		data = data->next; 
-		if (data && data->previous->operators == OPERATORS_AND && exec.exit != 0)
-		{
-			while (data && (data->previous->operators != OPERATORS_OR))
-				data = data->next;
-		}
-		if (data && data->previous->operators == OPERATORS_OR && exec.exit == 0)
-		{
-			while (data && (data->previous->operators != OPERATORS_AND))
-				data = data->next;
-		}
+		data = data->next;
+		check_operators(&data, &exec);
 	}
 	collect_garbage(&exec);
 	return (exec.exit);
