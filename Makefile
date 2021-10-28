@@ -63,7 +63,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT_NAME) $(OBJECTS)
 	@$(CC) $(OBJECTS) $(CFLAGS) $(LFLAGS) -o $@
-	@echo "42-minishell" >> $(NAME)
+	@echo -n "42-minishell@nschumac,jsiller" >> $(NAME)
 
 $(LIBFT_NAME):
 	@echo $(Y)Compiling $(B)libft $(Y)...$(G)
@@ -71,26 +71,25 @@ $(LIBFT_NAME):
 
 clean:
 	@echo $(Y)removing object-files...
-	@sleep 0.3
 	@rm -f $(OBJECTS)
+	@sleep 0.2
 	@echo $(Y)cleaning libft...
 	@make fclean -C $(LIB_PATH)
-	@sleep 0.3
+	@sleep 0.2
 	@echo $(G)done removing object-fies
 
 fclean:
 	@echo $(Y)cleaning all binary files
-	@sleep 0.2
 	@make clean
 	@sleep 0.2
 	@echo $(Y)removing executable
 	@rm -f $(NAME)
 	@sleep 0.2
 	@echo $(G)executable removed
-	@echo $(Y)cleaning libft
+	@echo $(Y)removing libft archive
 	@make fclean -C $(LIB_PATH)
 	@sleep 0.2
-	@echo $(G)libft cleaned
+	@echo $(G)libft archive removed
 	@sleep 0.2
 	@echo $(G)fclean done $(X)
 

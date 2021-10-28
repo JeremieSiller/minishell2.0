@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:04 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 00:21:48 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 20:10:01 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		string_append(char **org, char *str);
 /*
 ** string functions
 */
-
 
 /*
 ** env suff

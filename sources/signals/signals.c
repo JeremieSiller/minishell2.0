@@ -6,6 +6,7 @@ void	gsignal_ctlc(int sigtype)
 	if (sigtype == SIGINT)
 	{
 		write(1, "\n", 1);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -55,7 +56,7 @@ int	our_minishell(char *cmd)
 		total += ret;
 		ret = read(fd, str2, 1000);
 	}
-	if (total >= 13 && !ft_strncmp(str1 + total - 13, "42-minishell\n", 13))
+	if (total >= 30 && !ft_strncmp(str1 + total - 30, "42-minishell@nschumac,jsiller", 29))
 	{
 		free(str1);
 		return (1);

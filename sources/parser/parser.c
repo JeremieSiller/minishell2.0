@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:38:44 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/27 00:06:34 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/28 20:23:15 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	check_input(char *str)
 		if (ft_strchr(ENDCOMMAND, *str) && *str != '(')
 		{
 			str++;
-			if ((*(str) == '|' && *(str - 1) == '|') ||
-				(*(str) == '&' && *(str - 1) == '&'))
+			if ((*(str) == '|' && *(str - 1) == '|') 
+				|| (*(str) == '&' && *(str - 1) == '&'))
 				str++;
 			while (*str && *str == ' ')
 				str++;
@@ -45,11 +45,11 @@ int	check_input(char *str)
 				return (1);
 			str--;
 		}
-		else if (ft_strchr(REDIRECTIONS, *str))	
+		else if (ft_strchr(REDIRECTIONS, *str))
 		{
 			str++;
-			if ((*(str) == '>' && *(str - 1) == '>') ||
-				(*(str) == '<' && *(str - 1) == '<'))
+			if ((*(str) == '>' && *(str - 1) == '>')
+				|| (*(str) == '<' && *(str - 1) == '<'))
 				str++;
 			while (*str && *str == ' ')
 				str++;
@@ -92,7 +92,7 @@ t_cmds	*parse(char *str, t_cmds *cur, char *argv)
 		str++;
 	}
 	if (strbuf)
-		if(dstring_append(&cur->cmd, strbuf))
+		if (dstring_append(&cur->cmd, strbuf))
 			return ((void *)(size_t)clear_list(cur, 0));
 	return (find_listhead(cur));
 }

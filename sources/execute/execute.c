@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 20:29:55 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 20:30:33 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,6 @@ static void	child(t_execute *exec, t_cmds *data)
 
 static void	parent(t_execute *exec, t_cmds *data)
 {
-	if (!our_minishell(data->cmd[0]))
-		signal(SIGINT, fsignal_ctlc);
-	else
-		signal(SIGINT, SIG_IGN);
 	if (exec->s_fd != -1)
 		close(exec->s_fd);
 	close(exec->fd[1]);
@@ -89,6 +85,9 @@ void	exec_main(t_cmds *data, t_execute *exec)
 		exec->exit = ret;
 		return ;
 	}
+	signal(SIGINT, SIG_IGN);
+	if (!our_minishell(data->cmd[0]))
+		signal(SIGINT, fsignal_ctlc);
 	id = fork();
 					if (id == -1)
 					{

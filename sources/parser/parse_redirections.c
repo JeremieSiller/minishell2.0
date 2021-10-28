@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:35 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/27 23:07:27 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/28 20:21:00 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	parse_heredoc(char **str, t_cmds **cur)
 	int	last;
 
 	last = redirect_size((*cur)->in_dir) - 1;
-	(*cur)->in_dir[last]->type = true;	
+	(*cur)->in_dir[last]->type = true;
 	(*str) += 2;
 	while (**str == ' ')
 		(*str)++;
@@ -61,7 +61,6 @@ static int	parse_leftfile(char **str, t_cmds **cur)
 		(*str)++;
 	}
 	(*str)--;
-	
 	return (0);
 }
 
@@ -70,8 +69,8 @@ int	redirect_size(t_redirect **red)
 	int	size;
 
 	size = 0;
-	while ((red) && (red)[size])	
-		size++;	
+	while ((red) && (red)[size])
+		size++;
 	return (size);
 }
 
@@ -80,7 +79,8 @@ int	add_redirect(t_redirect ***cur)
 	int			size;
 	t_redirect	**buf;
 
-	buf = (t_redirect **)ft_calloc(redirect_size(*cur) + 2, sizeof(t_redirect *));
+	buf = (t_redirect **)ft_calloc(redirect_size(*cur) + 2,
+			sizeof(t_redirect *));
 	if (!buf)
 		return (1);
 	size = 0;
