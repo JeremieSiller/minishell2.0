@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 17:29:47 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 17:55:03 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,11 +149,9 @@ unsigned char	execute(t_cmds *data)
 	int				ret;
 	if (!data)
 		return (0);
-	exec.s_fd = -1;
-	exec.lst = 0;
+	ft_memset(&exec, 0, sizeof(exec));
 	exec.s_in = dup(0);
 	exec.s_out = dup(1);
-	exec.exit = 0;
 	while (data != 0)
 	{
 		if (data->write == 0 && data->read == 0)

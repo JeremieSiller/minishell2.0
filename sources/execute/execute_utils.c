@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 17:03:52 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 17:30:51 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/28 17:54:39 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,14 @@ int	check_builtin(char **cmd)
 
 void	collect_garbage(t_execute *exec)
 {
+	if (exec->s_fd != 0)
 	close(exec->s_fd);
 	close(exec->s_in);
 	close(exec->s_out);
-	close(exec->fd[0]);
-	close(exec->fd[1]);
+	if (exec->fd[0] != 0)
+		close(exec->fd[0]);
+	if (exec->fd[1] != 0)
+		close(exec->fd[1]);
 	ft_lstiter(exec->lst, ft_wait);
 	if (exec->lst)
 		exec->exit = ((t_pid *)ft_lstlast(exec->lst)->content)->exit;
