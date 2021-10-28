@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/27 22:28:13 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/27 22:58:19 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static const t_builtins	built_cmd[] = {
 	{NULL, NULL}
 };
 
-static void	check_builtin(char **cmd)
+int	check_builtin(char **cmd)
 {
 	int	i;
 
@@ -37,14 +37,16 @@ static void	check_builtin(char **cmd)
 	{
 		if (!ft_strncmp(cmd[0], built_cmd[i].name, ft_strlen(built_cmd[i].name) + 1))
 		{
-			exit(built_cmd[i].func(cmd));
+			return(built_cmd[i].func(cmd));
 		}
 		i++;
 	}
+	return (-1);
 }
 
 static void	child(t_execute *exec, t_cmds *data)
 {
+	int	ret;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	changetermios(true);
@@ -72,7 +74,9 @@ static void	child(t_execute *exec, t_cmds *data)
 	close(exec->fd[0]);
 	close(exec->fd[1]);
 	close(exec->s_fd);
-	check_builtin(data->cmd);
+	ret = check_builtin(data->cmd);
+	if (ret != -1)
+		exit(ret);
 	find_command(data->cmd[0], &str, environ);
 	ft_lstclear(&(exec->lst), free);
 	execve(str, data->cmd, environ);
@@ -107,6 +111,41 @@ static void	parent(t_execute *exec, t_cmds *data)
 	}
 }
 
+void	exec_main(t_cmds *data, t_execute *exec)
+{
+	int		ret;
+	int		id;
+	char	*str;
+
+	ret = check_builtin(data->cmd);
+	if (ret != -1)
+	{
+		exec->exit = ret;
+		return ;
+	}
+	id = fork();
+					if (id == -1)
+					{
+						ft_putstr_fd("fork eror\n", 2);
+						return ;
+					}
+	if (id == 0)
+	{
+		find_command(data->cmd[0], &str, environ);
+		ft_lstclear(&(exec->lst), free);
+		execve(str, data->cmd, environ);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putendl_fd(": cmd not found", 2);
+		exit(127);
+	}
+	else
+	{
+		wait(&ret);
+		if (WIFEXITED(ret))
+			exec->exit = WEXITSTATUS(ret);
+	}
+}
 /*
 ** execute gets a list of arguements and executes them
 ** scope always starts with 0 and only gets increased 
@@ -129,60 +168,67 @@ unsigned char	execute(t_cmds *data)
 	exec.exit = 0;
 	while (data != 0)
 	{
-		pid = malloc(sizeof(*pid));
-							if (!pid)
-							{
-								ft_putstr_fd("Malloc error\n", 2);
-								ft_lstclear(&(exec.lst), free);
-								return (1);
-							}
-		if (pipe(exec.fd) == -1)
-							{
-								ft_putstr_fd("Pipe error\n", 2);
-								ft_lstclear(&(exec.lst), free);
-								return (1);
-							}
-		pid ->pid = fork();
-							if (pid->pid == -1)
-							{
-								ft_putstr_fd("Fork error\n", 2);
-								ft_lstclear(&(exec.lst), free);
-								close(exec.fd[0]);
-								close(exec.fd[1]);
-								return (1);
-							}
-		if (pid->pid == 0)
+		if (data->write == 0 && data->read == 0)
 		{
-			child(&exec, data);
+			exec_main(data, &exec);
 		}
-		else 
+		else
 		{
-			tmp = ft_lstnew(pid);
-								if (!tmp)
+			pid = malloc(sizeof(*pid));
+								if (!pid)
 								{
-									ft_putstr_fd("Error\n", 2);
+									ft_putstr_fd("Malloc error\n", 2);
+									ft_lstclear(&(exec.lst), free);
 									return (1);
 								}
-			ft_lstadd_back(&(exec.lst), tmp);
-			parent(&exec, data);
+			if (pipe(exec.fd) == -1)
+								{
+									ft_putstr_fd("Pipe error\n", 2);
+									ft_lstclear(&(exec.lst), free);
+									return (1);
+								}
+			pid ->pid = fork();
+								if (pid->pid == -1)
+								{
+									ft_putstr_fd("Fork error\n", 2);
+									ft_lstclear(&(exec.lst), free);
+									close(exec.fd[0]);
+									close(exec.fd[1]);
+									return (1);
+								}
+			if (pid->pid == 0)
+			{
+				child(&exec, data);
+			}
+			else 
+			{
+				tmp = ft_lstnew(pid);
+									if (!tmp)
+									{
+										ft_putstr_fd("Error\n", 2);
+										return (1);
+									}
+				ft_lstadd_back(&(exec.lst), tmp);
+				parent(&exec, data);
+			}
 		}
 		data = data->next;
 		if (data && data->previous->operators == OPERATORS_AND && exec.exit != 0)
 		{
-			data = data->next;
 			while (data && (data->previous->operators != OPERATORS_OR))
 				data = data->next;
 		}
-		while (data && data->previous->operators == OPERATORS_OR && exec.exit == 0)
+		if (data && data->previous->operators == OPERATORS_OR && exec.exit == 0)
 		{
-			data = data->next;
 			while (data && (data->previous->operators != OPERATORS_AND))
 				data = data->next;
 		}
 	}
-	close(exec.s_fd);
+	if (exec.s_fd != -1)
+		close(exec.s_fd);
 	ft_lstiter(exec.lst, ft_wait);
-	exec.exit = ((t_pid *)ft_lstlast(exec.lst)->content)->exit;
+	if (ft_lstlast(exec.lst))
+		exec.exit = ((t_pid *)ft_lstlast(exec.lst)->content)->exit;
 	ft_lstclear(&exec.lst, free);
 	return (exec.exit);
 }
