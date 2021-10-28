@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 19:50:34 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/28 19:52:11 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,9 @@ void	exec_main(t_cmds *data, t_execute *exec)
 		exec->exit = ret;
 		return ;
 	}
+	signal(SIGINT, SIG_IGN);
 	if (!our_minishell(data->cmd[0]))
 		signal(SIGINT, fsignal_ctlc);
-	else
-		signal(SIGINT, SIG_IGN);
 	id = fork();
 					if (id == -1)
 					{
