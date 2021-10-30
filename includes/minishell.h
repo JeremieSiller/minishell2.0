@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 20:07:02 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/29 13:02:20 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ typedef struct s_cmds
 	struct s_cmds	*next;
 }	t_cmds;
 
-char	**g_ourenv;
+// char	**g_ourenv;
+typedef struct	s_variables
+{
+	char			**env;
+	unsigned char	exit_status;
+}	t_variables;
+
+t_variables	g_ourenv;
 
 #endif

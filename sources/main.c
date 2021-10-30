@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 17:51:09 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/29 13:25:10 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 #include <utilities.h>
 #include <execute.h>
 #include <signals.h>
+#include <env.h>
 
 int	main(int argc, char *argv[], char **env)
 {
 	char	*str;
 	t_cmds	*cmds;
 
+	if (read_env(env))
+		ft_putstr_fd("minishell: env: got an error when trying to create the env\n", 2);
 	signal(SIGQUIT, SIG_IGN);
 	if (argc == 2)
 	{

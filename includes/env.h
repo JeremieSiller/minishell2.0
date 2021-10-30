@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 21:22:14 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/29 13:28:16 by jsiller          ###   ########.fr       */
+/*   Created: 2021/10/29 13:23:28 by jsiller           #+#    #+#             */
+/*   Updated: 2021/10/29 14:04:37 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef ENV_H
+# define ENV_H
 
-int	bt_env(char **argv)
-{
-	int	i;
+int	read_env(char **env);
+int	rm_env(char *str);
 
-	i = 0;
-	if (!g_ourenv.env)
-	{
-		ft_putstr_fd("minishell: env: env is empty\n", 2);
-		return (1);
-	}
-	while (g_ourenv.env[i])
-	{
-		printf("%s\n", g_ourenv.env[i]);
-		i++;
-	}
-	return (0);
-	(void)argv;
-}
+#endif
