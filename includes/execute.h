@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:05:32 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/28 20:06:48 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/31 18:59:45 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <libft.h>
 # include <minishell.h>
+#include <signal.h>
 
 # define PIPE_ERR 2
 # define MALLOC_ERR 3
@@ -25,8 +26,6 @@ typedef struct s_execute
 	t_list		*lst;
 	int			s_fd;
 	int			fd[2];
-	int			s_out;
-	int			s_in;
 	int			exit;
 }	t_execute;
 
@@ -39,8 +38,9 @@ typedef struct s_pid
 unsigned char	execute(t_cmds *data);
 int				find_command(char *arg, char **str, char **env);
 void			ft_wait(void *pid);
-int				check_builtin(char **cmd);
+int				check_builtin(char **cmd, t_execute *exec);
 void			collect_garbage(t_execute *exec);
 int				execute_errors(int ret, t_execute *exec);
 void			check_operators(t_cmds **data, t_execute *exec);
+int				execute_child_erros(int ret, t_execute *exec, t_cmds *data);
 #endif

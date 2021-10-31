@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:04 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 20:10:01 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/10/31 14:10:22 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ int		string_append(char **org, char *str);
 /*
 ** env suff
 */
-char	*get_env_val(char **env, char *str);
 
 #endif
