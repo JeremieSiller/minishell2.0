@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:01:02 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/31 17:59:31 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/01 20:54:17 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 void	check_operators(t_cmds **data, t_execute *exec)
 {
-	if ((*data) && (*data)->previous->operators == OPERATORS_AND && exec->exit != 0)
+	if ((*data) && (*data)->previous->operators == OPERATORS_AND
+		&& exec->exit != 0)
 	{
 		while ((*data) && ((*data)->previous->operators != OPERATORS_OR))
 			(*data) = (*data)->next;
 	}
-	if ((*data) && (*data)->previous->operators == OPERATORS_OR && exec->exit == 0)
+	if ((*data) && (*data)->previous->operators == OPERATORS_OR
+		&& exec->exit == 0)
 	{
 		while ((*data) && ((*data)->previous->operators != OPERATORS_AND))
 			(*data) = (*data)->next;

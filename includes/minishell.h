@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/31 19:00:51 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/01 17:32:51 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_cmds
 	t_redirect		**out_dir;
 	struct s_cmds	*previous;
 	struct s_cmds	*next;
+	char			*str;
 }	t_cmds;
 
 // char	**g_ourenv;

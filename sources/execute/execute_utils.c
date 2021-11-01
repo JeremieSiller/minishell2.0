@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 17:03:52 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/31 19:02:28 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/01 20:53:45 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_builtin(char **cmd, t_execute *exec)
 		if (!ft_strncmp(cmd[0], g_built_cmd[i].name,
 				ft_strlen(g_built_cmd[i].name) + 1))
 		{
-			exec->exit = g_built_cmd[i].func(cmd); 
+			exec->exit = g_built_cmd[i].func(cmd);
 			return (0);
 		}
 		i++;
@@ -71,9 +71,6 @@ void	collect_garbage(t_execute *exec)
 		close(exec->fd[1]);
 		exec->fd[1] = -1;
 	}
-	ft_lstiter(exec->lst, ft_wait);
-	if (exec->lst)
-		exec->exit = ((t_pid *)ft_lstlast(exec->lst)->content)->exit;
 	ft_lstclear(&(exec->lst), free);
 }
 

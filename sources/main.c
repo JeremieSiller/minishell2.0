@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/29 13:25:10 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/01 17:32:59 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 int	main(int argc, char *argv[], char **env)
 {
-	char	*str;
 	t_cmds	*cmds;
+	char		*str;
 
 	if (read_env(env))
 		ft_putstr_fd("minishell: env: got an error when trying to create the env\n", 2);
@@ -58,7 +58,6 @@ int	main(int argc, char *argv[], char **env)
 			ft_putstr_fd("help", 1);
 		add_history(str);
 		free(str);
-		
 	}
 	return (0);
 	(void)env;

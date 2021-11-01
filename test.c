@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_find.c                                         :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 17:37:36 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/01 17:38:23 by jsiller          ###   ########.fr       */
+/*   Created: 2021/11/01 16:32:57 by jsiller           #+#    #+#             */
+/*   Updated: 2021/11/01 16:36:03 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execute.h>
-#include <utilities.h>
-#include <minishell.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <libft.h>
 
 static int	free_path(char **path, int returnvalue)
 {
@@ -28,23 +29,7 @@ static int	free_path(char **path, int returnvalue)
 	return (returnvalue);
 }
 
-static int	not_found_404(char *arg, char **path, char **str)
-{
-	free_path(path, 0);
-	*str = arg;
-	if (arg[0] == '/' || !ft_strncmp(arg, "./", 2))
-		return (0);
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(arg, 2);
-	ft_putendl_fd(": cmd not found", 2);
-	return (2);
-}
-
-/*
-** ft_find_command checks if the command args is existing and str
-** the correct path in str. Str is allocated and needs to be freed.
-*/
-int	find_command(char *arg, char **str, char __attribute__((unused)) **env)
+int	find_command(char *arg, char **str, char **env)
 {
 	char		**path;
 	int			i;
@@ -70,5 +55,15 @@ int	find_command(char *arg, char **str, char __attribute__((unused)) **env)
 		free(*str);
 		i++;
 	}
-	return (not_found_404(arg, path, str));
+	*str = arg;
+	return (0);
+	(void)env;
+}
+
+int	main(void)
+{
+	char *arg = "test";
+	char *str;
+	find_command(arg, &str, NULL);
+	//free (str);
 }

@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/31 19:04:15 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/01 20:58:10 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,26 @@
 
 extern char	**environ;
 
-static int	check_errno(t_cmds *data)
+static int	check_cmd(t_execute *exec, t_cmds *data, char **str)
 {
-	if (errno == 2)
+	int	ret;
+
+	ret = find_command(data->cmd[0], str, environ);
+	if (ret == 1)
+		return (execute_child_erros(1, exec, data));
+	collect_garbage(exec);
+	if (ret == 2)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(data->cmd[0], 2);
-		ft_putendl_fd(": cmd not found", 2);
 		clear_list(data, 0);
 		return (127);
 	}
-	perror(data->cmd[0]);
-	clear_list(data, 0);
-	return (126);
+	return (0);
 }
 
 static int	child(t_execute *exec, t_cmds *data)
 {
 	char	*str;
+	int		ret;
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -47,14 +49,14 @@ static int	child(t_execute *exec, t_cmds *data)
 	if (check_builtin(data->cmd, exec) == 0)
 	{
 		collect_garbage(exec);
-		clear_list(data, 0);
 		return (exec->exit);
 	}
-	if (find_command(data->cmd[0], &str, environ) == 1)
-		return (execute_child_erros(1, exec, data));
-	collect_garbage(exec);
+	ret = check_cmd(exec, data, &str);
+	if (ret != 0)
+		return (ret);
 	execve(str, data->cmd, environ);
-	return (check_errno(data));
+	perror(data->cmd[0]);
+	return (126);
 }
 
 static void	parent(t_execute *exec, t_cmds *data)
@@ -84,12 +86,12 @@ int	create_childs(t_cmds *data, t_execute *exec)
 	pid = malloc(sizeof(*pid));
 	if (!pid)
 		return (execute_errors(MALLOC_ERR, exec));
+	*pid = (t_pid){};
 	tmp = ft_lstnew(pid);
 	if (!tmp)
-	{
 		free(pid);
+	if (!tmp)
 		return (execute_errors(MALLOC_ERR, exec));
-	}
 	ft_lstadd_back(&(exec->lst), tmp);
 	if (data->write == 1 && pipe(exec->fd) == -1)
 		return (execute_errors(PIPE_ERR, exec));
@@ -112,10 +114,11 @@ unsigned char	execute(t_cmds *data)
 {
 	t_execute		exec;
 
-	exec = (t_execute) { };
+	exec = (t_execute){};
 	exec.s_fd = -1;
 	exec.fd[0] = -1;
 	exec.fd[1] = -1;
+	exec.lst = 0;
 	while (data != 0)
 	{
 		if (data->write == 1 || data->read == 1
@@ -128,6 +131,9 @@ unsigned char	execute(t_cmds *data)
 		data = data->next;
 		check_operators(&data, &exec);
 	}
+	ft_lstiter(exec.lst, ft_wait);
+	if (exec.lst)
+		exec.exit = ((t_pid *)ft_lstlast(exec.lst)->content)->exit;
 	collect_garbage(&exec);
 	return (exec.exit);
 }
