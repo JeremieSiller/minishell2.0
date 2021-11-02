@@ -1,6 +1,6 @@
 #include <utilities.h>
 
-static int	strrlen(char *str)
+int	strrlen(char *str)
 {
 	int	len;
 

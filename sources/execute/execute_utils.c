@@ -6,13 +6,15 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 17:03:52 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/29 14:06:27 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/31 19:02:28 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <execute.h>
 #include <builtins.h>
+#include <sys/wait.h>
+#include <utilities.h>
 
 static const t_builtins	g_built_cmd[] = {
 	{"echo", &bt_echo},
@@ -34,7 +36,7 @@ void	ft_wait(void *pid)
 		((t_pid *)pid)->exit = WEXITSTATUS(((t_pid *)pid)->exit);
 }
 
-int	check_builtin(char **cmd)
+int	check_builtin(char **cmd, t_execute *exec)
 {
 	int	i;
 
@@ -44,23 +46,31 @@ int	check_builtin(char **cmd)
 		if (!ft_strncmp(cmd[0], g_built_cmd[i].name,
 				ft_strlen(g_built_cmd[i].name) + 1))
 		{
-			return (g_built_cmd[i].func(cmd));
+			exec->exit = g_built_cmd[i].func(cmd); 
+			return (0);
 		}
 		i++;
 	}
-	return (-1);
+	return (1);
 }
 
 void	collect_garbage(t_execute *exec)
 {
-	if (exec->s_fd != 0)
+	if (exec->s_fd != -1)
+	{
 		close(exec->s_fd);
-	close(exec->s_in);
-	close(exec->s_out);
-	if (exec->fd[0] != 0)
+		exec->s_fd = -1;
+	}
+	if (exec->fd[0] != -1)
+	{
 		close(exec->fd[0]);
-	if (exec->fd[1] != 0)
+		exec->fd[0] = -1;
+	}
+	if (exec->fd[1] != -1)
+	{
 		close(exec->fd[1]);
+		exec->fd[1] = -1;
+	}
 	ft_lstiter(exec->lst, ft_wait);
 	if (exec->lst)
 		exec->exit = ((t_pid *)ft_lstlast(exec->lst)->content)->exit;
@@ -71,5 +81,15 @@ int	execute_errors(int ret, t_execute *exec)
 {
 	perror("minishell");
 	collect_garbage(exec);
+	exec->exit = ret;
+	return (ret);
+}
+
+int	execute_child_erros(int ret, t_execute *exec, t_cmds *data)
+{
+	perror("minishell");
+	collect_garbage(exec);
+	clear_list(data, 0);
+	data = 0;
 	return (ret);
 }

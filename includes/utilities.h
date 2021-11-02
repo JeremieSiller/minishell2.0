@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:04 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/30 17:54:49 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/02 12:13:39 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_cmds	*find_last(t_cmds *node);
 int		char_append(char **str, char c);
 int		dstring_append(char ***org, char *str);
 int		string_append(char **org, char *str);
+int		strrlen(char *str);
+int		darr_size(char **str);
 
 /*
 ** string functions
@@ -44,6 +46,5 @@ int		string_append(char **org, char *str);
 /*
 ** env suff
 */
-char	*get_env_val(char **env, char *str);
 
 #endif

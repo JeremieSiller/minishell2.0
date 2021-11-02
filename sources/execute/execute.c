@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/29 14:48:16 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/31 19:04:15 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,59 @@
 #include <execute.h>
 #include <signals.h>
 #include <sys/errno.h>
+#include <utilities.h>
 
-extern char **environ;
+extern char	**environ;
 
-static void	child(t_execute *exec, t_cmds *data)
+static int	check_errno(t_cmds *data)
 {
-	int	ret;
+	if (errno == 2)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(data->cmd[0], 2);
+		ft_putendl_fd(": cmd not found", 2);
+		clear_list(data, 0);
+		return (127);
+	}
+	perror(data->cmd[0]);
+	clear_list(data, 0);
+	return (126);
+}
+
+static int	child(t_execute *exec, t_cmds *data)
+{
+	char	*str;
+
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	changetermios(true);
-	char	*str;
 	if (data->read == 1 && dup2(exec->s_fd, 0) == -1)
-	{
-		ft_putstr_fd("Dup error\n", 2);
-		return ;
-	}
+		return (execute_child_erros(1, exec, data));
 	if (data->write == 1 && dup2(exec->fd[1], 1) == -1)
+		return (execute_child_erros(1, exec, data));
+	if (check_builtin(data->cmd, exec) == 0)
 	{
-		ft_putstr_fd("Dup error\n", 2);
-		return ;
+		collect_garbage(exec);
+		clear_list(data, 0);
+		return (exec->exit);
 	}
-	if (data->write == 0 && dup2(exec->s_out, 1) == -1)
-	{
-		ft_putstr_fd("Dup error\n", 2);
-		return ;
-	}
-	if (data->read == 0 && dup2(exec->s_in, 0) == -1)
-	{
-		ft_putstr_fd("Dup error\n", 2);
-		return ;
-	}
-	close(exec->fd[0]);
-	close(exec->fd[1]);
-	close(exec->s_fd);
-	ret = check_builtin(data->cmd);
-	if (ret != -1)
-		exit(ret);
-	find_command(data->cmd[0], &str, environ);
-	ft_lstclear(&(exec->lst), free);
+	if (find_command(data->cmd[0], &str, environ) == 1)
+		return (execute_child_erros(1, exec, data));
+	collect_garbage(exec);
 	execve(str, data->cmd, environ);
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putendl_fd(": cmd not found", 2);
-	exit(127);
+	return (check_errno(data));
 }
 
 static void	parent(t_execute *exec, t_cmds *data)
 {
-	if (exec->s_fd != 0)
+	if (exec->s_fd != -1)
 		close(exec->s_fd);
-	if (exec->fd[1] != 0)
+	exec->s_fd = -1;
+	if (exec->fd[1] != -1)
 		close(exec->fd[1]);
-	exec->s_fd = dup(exec->fd[0]);
-	if (exec->fd[0] != 0)
-		close(exec->fd[0]);
+	exec->fd[1] = -1;
+	exec->s_fd = exec->fd[0];
+	exec->fd[0] = -1;
 	if (data->operators != OPERATORS_NONE)
 	{
 		ft_lstiter(exec->lst, ft_wait);
@@ -80,42 +79,28 @@ int	create_childs(t_cmds *data, t_execute *exec)
 	t_pid			*pid;
 	t_list			*tmp;
 
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_DFL);
 	pid = malloc(sizeof(*pid));
 	if (!pid)
 		return (execute_errors(MALLOC_ERR, exec));
+	tmp = ft_lstnew(pid);
+	if (!tmp)
+	{
+		free(pid);
+		return (execute_errors(MALLOC_ERR, exec));
+	}
+	ft_lstadd_back(&(exec->lst), tmp);
 	if (data->write == 1 && pipe(exec->fd) == -1)
 		return (execute_errors(PIPE_ERR, exec));
-	signal(SIGINT, SIG_IGN);
 	pid ->pid = fork();
 	if (pid->pid == -1)
 		return (execute_errors(FORK_ERR, exec));
 	if (pid->pid == 0)
-		child(exec, data);
-	else 
-	{
-		tmp = ft_lstnew(pid);
-		if (!tmp)
-			return (execute_errors(MALLOC_ERR, exec));
-		ft_lstadd_back(&(exec->lst), tmp);
+		exit(child(exec, data));
+	else
 		parent(exec, data);
-	}
 	return (0);
-}
-
-void	exec_main(t_cmds *data, t_execute *exec)
-{
-	int		ret;
-
-	ret = check_builtin(data->cmd);
-	if (ret != -1)
-	{
-		exec->exit = ret;
-		return ;
-	}
-	create_childs(data, exec);
-	signal(SIGINT, SIG_IGN);
-	if (!our_minishell(data->cmd[0]))
-		signal(SIGINT, fsignal_ctlc);
 }
 
 /*
@@ -126,24 +111,19 @@ void	exec_main(t_cmds *data, t_execute *exec)
 unsigned char	execute(t_cmds *data)
 {
 	t_execute		exec;
-	int				ret;
-	if (!data)
-		return (0);
-	ft_memset(&exec, 0, sizeof(exec));
+
+	exec = (t_execute) { };
 	exec.s_fd = -1;
 	exec.fd[0] = -1;
-	exec.fd[0] = -1;
-	exec.s_in = dup(0);
-	exec.s_out = dup(1);
+	exec.fd[1] = -1;
 	while (data != 0)
 	{
-		if (data->write == 0 && data->read == 0)
-			exec_main(data, &exec);
-		else 
+		if (data->write == 1 || data->read == 1
+			|| (data->write == 0 && data->read == 0
+				&& check_builtin(data->cmd, &exec) == 1))
 		{
-			ret = create_childs(data, &exec);
-			if (ret != 0)
-				return (ret);
+			if (create_childs(data, &exec) != 0)
+				return (exec.exit);
 		}
 		data = data->next;
 		check_operators(&data, &exec);

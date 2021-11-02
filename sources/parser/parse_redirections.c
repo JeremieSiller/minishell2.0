@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:35 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/28 20:21:00 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/02 12:48:04 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,20 @@ static int	parse_leftfile(char **str, t_cmds **cur)
 {
 	int	last;
 
+	
 	last = redirect_size((*cur)->in_dir) - 1;
 	(*cur)->in_dir[last]->type = false;
 	(*str) += 1;
 	while (**str == ' ')
 		(*str)++;
-	while (!ft_strchr(HEREDOCEND, **str))
+	while (**str && !ft_strchr(HEREDOCEND, **str))
 	{
 		if (**str == '\'' || **str == '\"')
 		{
 			(*str)++;
 			continue ;
 		}
-		if (char_append(&(*cur)->in_dir[last]->path, **str))
+		if (char_append(&((*cur)->in_dir[last]->path), **str))
 			return (1);
 		(*str)++;
 	}
@@ -86,7 +87,7 @@ int	add_redirect(t_redirect ***cur)
 	size = 0;
 	while (++size && (*cur) && (*cur)[size - 1])
 		buf[size - 1] = (*cur)[size - 1];
-	buf[size - 1] = (t_redirect *)ft_calloc(1, sizeof(t_redirect *));
+	buf[size - 1] = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
 	if (!buf[size - 1])
 		return (1);
 	if (*cur)

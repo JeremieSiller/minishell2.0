@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:38:44 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/28 20:23:15 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/02 12:46:12 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ t_cmds	*parse(char *str, t_cmds *cur, char *argv)
 	if (strbuf)
 		if (dstring_append(&cur->cmd, strbuf))
 			return ((void *)(size_t)clear_list(cur, 0));
+	
 	return (find_listhead(cur));
 }
