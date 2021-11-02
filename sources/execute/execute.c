@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/01 21:34:57 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/02 13:12:08 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ int	create_childs(t_cmds *data, t_execute *exec)
 	t_pid			*pid;
 	t_list			*tmp;
 
-	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_IGN);
+	if (!our_minishell(data->cmd[0]))
+		signal(SIGINT, fsignal_ctlc);
 	pid = malloc(sizeof(*pid));
 	if (!pid)
 		return (execute_errors(MALLOC_ERR, exec));
