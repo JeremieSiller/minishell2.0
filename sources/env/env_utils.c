@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 13:03:26 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/29 14:08:35 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/10/30 18:19:58 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ static int	get_env_size(char **env)
 	return (i);
 }
 
+int	free_env()
+{
+	int	i;
+
+	i = 0;
+	while (g_ourenv.env && g_ourenv.env[i])
+		free(g_ourenv.env[i]);
+	if (g_ourenv.env)
+		free(g_ourenv.env);
+	g_ourenv.env = NULL;
+	return (0);
+}
+
 int	read_env(char **env)
 {
 	int	i;
@@ -32,7 +45,9 @@ int	read_env(char **env)
 	i = 0;
 	while (env && env[i])
 	{
-		g_ourenv.env[i] = env[i];
+		g_ourenv.env[i] = ft_strdup(env[i]);
+		if (!g_ourenv.env[i])
+			return (1 + free_env());
 		i++;
 	}
 	g_ourenv.exit_status = 0;
@@ -52,50 +67,14 @@ int	add_env(char *str)
 	tmp = ft_calloc(get_env_size(g_ourenv.env) + 2, sizeof(*g_ourenv.env));
 	if (!tmp)
 		return (1);
-	while (g_ourenv.env[i])
+	while (g_ourenv.env && g_ourenv.env[i])
 	{
 		tmp[i] = g_ourenv.env[i];
 		i++;
 	}
 	tmp[i] = str;
-	free(g_ourenv.env);
-	g_ourenv.env = tmp;
-	return (0);
-}
-
-int	rm_env(char *str)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	**tmp;
-
-	i = 0;
-	while (g_ourenv.env && g_ourenv.env[i])
-	{
-		if (!strncmp(str, g_ourenv.env[i], ft_strlen(str)))
-			break;
-		i++;
-	}
-	if (i == get_env_size(g_ourenv.env))
-		return (0);
-	tmp = ft_calloc(sizeof(char *), get_env_size(g_ourenv.env));
-	if (!tmp)
-	{
-		perror("minishell: env");
-		return (1);
-	}
-	j = 0;
-	k = 0;
-	while (g_ourenv.env[j])
-	{
-		if (j == i)
-			j++;
-		tmp[k] = g_ourenv.env[j];
-		k++;
-		j++;
-	}
-	free(g_ourenv.env[j]);
+	if (g_ourenv.env)
+		free(g_ourenv.env);
 	g_ourenv.env = tmp;
 	return (0);
 }
