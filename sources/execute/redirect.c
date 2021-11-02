@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 21:25:38 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/02 13:27:16 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/02 13:36:59 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ static int	in_directions(t_cmds *data)
 
 int	redirect(t_cmds *data, t_execute *exec)
 {
+	if (data->read == 1 && dup2(exec->s_fd, 0) == -1)
+		return (execute_child_erros(1, exec, data));
 	if (here_doc(data) == 1)
 	{
 		exec->exit = 1;
@@ -131,6 +133,8 @@ int	redirect(t_cmds *data, t_execute *exec)
 		exec->exit = 1;
 		return (1);
 	}
+	if (data->write == 1 && dup2(exec->fd[1], 1) == -1)
+		return (execute_child_erros(1, exec, data));
 	if (out_directions(data) == 1)
 	{
 		exec->exit = 1;
