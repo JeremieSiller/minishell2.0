@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/01 20:58:10 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/01 21:34:57 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static int	child(t_execute *exec, t_cmds *data)
 	if (data->read == 1 && dup2(exec->s_fd, 0) == -1)
 		return (execute_child_erros(1, exec, data));
 	if (data->write == 1 && dup2(exec->fd[1], 1) == -1)
+		return (execute_child_erros(1, exec, data));
+	if (redirect(data, exec) == 1)
 		return (execute_child_erros(1, exec, data));
 	if (check_builtin(data->cmd, exec) == 0)
 	{

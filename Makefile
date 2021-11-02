@@ -37,7 +37,8 @@ SOURCES =	sources/main.c																\
 			sources/builtins/true.c														\
 			sources/execute/execute_utils.c												\
 			sources/execute/execute_utils_2.c											\
-			sources/env/env_utils.c
+			sources/env/env_utils.c														\
+			sources/execute/redirect.c
 
 #COLORS
 Y = "\033[33m"

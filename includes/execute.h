@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:05:32 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/31 18:59:45 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/01 21:30:46 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ void			collect_garbage(t_execute *exec);
 int				execute_errors(int ret, t_execute *exec);
 void			check_operators(t_cmds **data, t_execute *exec);
 int				execute_child_erros(int ret, t_execute *exec, t_cmds *data);
+int				redirect(t_cmds *data, t_execute *exec);
 #endif
