@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:38:44 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/02 12:46:12 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/02 15:01:51 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ t_cmds	*parse(char *str, t_cmds *cur, char *argv)
 			return ((void *)(size_t)clear_list(cur, 0));
 		else if (ft_strchr(REDIRECTIONS, *str)
 			&& parse_redirections(&str, &strbuf, &cur, &fc))
+			return ((void *)(size_t)clear_list(cur, 0));
+		else if (*str == '*' && parse_arsterix(&str, &strbuf, &cur, &fc))
 			return ((void *)(size_t)clear_list(cur, 0));
 		else if (!fc && char_append(&strbuf, *str))
 			return ((void *)(size_t)clear_list(cur, 0));
