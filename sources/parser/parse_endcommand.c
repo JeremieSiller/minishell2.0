@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:26 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/26 23:51:00 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 19:34:20 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,8 @@ static int	parse_brackets(char **str, char **strbuf, t_cmds **cur, char *argv)
 	return (0);
 }
 
-int	parse_endcommands(char **str, char **strbuf, t_cmds **cur, int *fc, char *argv)
+int	parse_endcommands(char **str, char **strbuf, t_cmds **cur, char *argv)
 {
-	*fc = 1;
 	if (**str == '(')
 		return (parse_brackets(str, strbuf, cur, argv));
 	if (**str == '|' && *(*str + 1) != '|')

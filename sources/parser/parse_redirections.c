@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:35 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/02 12:48:04 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 19:34:48 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int	parse_leftfile(char **str, t_cmds **cur)
 {
 	int	last;
 
-	
 	last = redirect_size((*cur)->in_dir) - 1;
 	(*cur)->in_dir[last]->type = false;
 	(*str) += 1;
@@ -96,9 +95,8 @@ int	add_redirect(t_redirect ***cur)
 	return (0);
 }
 
-int	parse_redirections(char **str, char **strbuf, t_cmds **cur, int *fc)
+int	parse_redirections(char **str, char **strbuf, t_cmds **cur)
 {
-	*fc = 1;
 	if (*strbuf)
 	{
 		if (dstring_append(&(*cur)->cmd, *strbuf))
