@@ -46,10 +46,11 @@ int	our_minishell(char *cmd)
 	int		total;
 
 	fd = open(cmd, O_RDONLY);
-	if (fd <= 0)
+	if (fd < 0)
 		return (0);
 	total = 0;
 	ret = read(fd, str2, 1000);
+	str1 = 0;
 	while (ret)
 	{	
 		if (ft_memappend((void **)&str1, total, (void *)str2, ret))
@@ -62,7 +63,8 @@ int	our_minishell(char *cmd)
 		free(str1);
 		return (1);
 	}
-	free(str1);
+	if (str1)
+		free(str1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 17:19:23 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 18:12:17 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@ int	main(int argc, char *argv[], char **env)
 			if (append_list(&cmds))
 				return (1);
 		cmds = parse(argv[1], cmds, argv[0]);
-		return execute(cmds);
+			if (!cmds)
+				return (1);
+			if (find_last(cmds)->cmd == NULL)
+				cmds = delete_node(find_last(cmds));
+			cmds = find_listhead(cmds);
+		return ((int)execute(cmds));
 	}
 	while (1)
 	{
