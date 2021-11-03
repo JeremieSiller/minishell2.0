@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 18:12:45 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 19:48:56 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ static int	child(t_execute *exec, t_cmds *data)
 	}
 	ret = check_cmd(exec, data, &str);
 	if (ret != 0)
-		return (ret);
+		return(ret);
 	execve(str, data->cmd, g_ourenv.env);
+	ft_putstr_fd("minishell: ", 2);
+	free(str);
 	perror(data->cmd[0]);
-	return (126);
+	clear_history();
+	return (clear_list(data, 126));
 }
 
 static void	parent(t_execute *exec, t_cmds *data)
@@ -77,10 +80,7 @@ int	create_childs(t_cmds *data, t_execute *exec)
 	t_pid			*pid;
 	t_list			*tmp;
 
-	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_IGN);
-	if (!our_minishell(data->cmd[0])) 
-		signal(SIGINT, fsignal_ctlc);
 	pid = ft_calloc(sizeof(*pid), 1);
 	if (!pid)
 		return (execute_errors(MALLOC_ERR, exec));
