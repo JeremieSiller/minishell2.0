@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 19:16:47 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 22:30:23 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,59 @@
 #include <signals.h>
 #include <env.h>
 
-int	main(int argc, char *argv[], char **env)
+static int	handlearg(char *argv[])
 {
 	t_cmds	*cmds;
-	char		*str;
 
-	if (read_env(env))
-		ft_putstr_fd("minishell: env: got an error when trying to create the env\n", 2);
-	signal(SIGQUIT, SIG_IGN);
-	if (argc == 2)
+	cmds = NULL;
+	if (append_list(&cmds))
+		return (1);
+	cmds = parse(argv[1], cmds, argv[0]);
+	if (!cmds)
+		return (1);
+	if (find_last(cmds)->cmd == NULL)
+		cmds = delete_node(find_last(cmds));
+	cmds = find_listhead(cmds);
+	return (clear_list(cmds, ((int)execute(cmds))));
+}
+
+static int	handleinput(char *str, char *argv)
+{
+	t_cmds	*cmds;
+	char	*symbol;
+
+	symbol = check_input(str); // TO DO BRUDDA
+	if (!symbol)
 	{
 		cmds = NULL;
-			if (append_list(&cmds))
-				return (1);
-		cmds = parse(argv[1], cmds, argv[0]);
-			if (!cmds)
-				return (1);
-			if (find_last(cmds)->cmd == NULL)
-				cmds = delete_node(find_last(cmds));
-			cmds = find_listhead(cmds);
-		return ((int)execute(cmds));
+		if (append_list(&cmds))
+			return (1);
+		cmds = parse(str, cmds, argv);
+		if (!cmds)
+			return (1);
+		if (find_last(cmds)->cmd == NULL)
+			cmds = delete_node(find_last(cmds));
+		cmds = find_listhead(cmds);
+		g_ourenv.exit_status = execute(cmds);
+		clear_list(cmds, 0);
+		return (0);
 	}
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(symbol, 2);
+	ft_putstr_fd("\'\n", 2);
+	free(symbol);
+	return (0);
+}
+
+int	main(int argc, char *argv[], char **env)
+{
+	char	*str;
+
+	if (read_env(env))
+		ft_putstr_fd("minishell: env: error trying to create the env\n", 2);
+	signal(SIGQUIT, SIG_IGN);
+	if (argc == 2)
+		return (handlearg(argv));
 	while (1)
 	{
 		signal(SIGINT, gsignal_ctlc);
@@ -45,23 +77,9 @@ int	main(int argc, char *argv[], char **env)
 		str = readline("minishell-2.0$ \x1b[s");
 		if (str == NULL && write(1, "\x1b[uexit\n", 9) && !changetermios(true))
 			exit(1);
-		if (!check_input(str))
-		{
-			cmds = NULL;
-			if (append_list(&cmds))
-				return (1);
-			cmds = parse(str, cmds, argv[0]);
-			if (!cmds)
-				return (1);
-			if (find_last(cmds)->cmd == NULL)
-				cmds = delete_node(find_last(cmds));
-			cmds = find_listhead(cmds);
-			g_ourenv.exit_status = execute(cmds);
-			clear_list(cmds, 0);
-		}
-		else
-			ft_putstr_fd("syntax error\n", 2);
-		if(str && str[0])
+		if (handleinput(str, argv[0]))
+			ft_putstr_fd("minishell: malloc error during runtime\n", 2);
+		if (str && str[0])
 			add_history(str);
 		free(str);
 	}

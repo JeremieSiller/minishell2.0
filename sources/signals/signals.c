@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/03 21:30:35 by nschumac          #+#    #+#             */
+/*   Updated: 2021/11/03 21:32:24 by nschumac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <signals.h>
 #include <utilities.h>
 
@@ -24,7 +36,7 @@ void	fsignal_ctlc(int sigtype)
 
 static int	ft_memappend(void **p1, size_t p1_size, void *p2, size_t p2_size)
 {
-	void *newp1;
+	void	*newp1;
 
 	newp1 = malloc(p1_size + p2_size + 1);
 	if (!newp1)
@@ -58,7 +70,8 @@ int	our_minishell(char *cmd)
 		total += ret;
 		ret = read(fd, str2, 1000);
 	}
-	if (total >= 30 && !ft_strncmp(str1 + total - 30, "42-minishell@nschumac,jsiller", 29))
+	if (total >= 30
+		&& !ft_strncmp(str1 + total - 30, "42-minishell@nschumac,jsiller", 29))
 	{
 		free(str1);
 		return (1);
@@ -70,14 +83,14 @@ int	our_minishell(char *cmd)
 
 int	changetermios(bool toggle)
 {
-	struct termios term;
-	
+	struct termios	term;
+
 	if (tcgetattr(STDOUT_FILENO, &term) == -1)
 		return (1);
 	if (toggle)
 		term.c_lflag |= ECHOCTL;
 	else
-		term.c_lflag &= ~(ECHOCTL);	
+		term.c_lflag &= ~(ECHOCTL);
 	if (tcsetattr(STDOUT_FILENO, TCSANOW, &term) == -1)
 		return (1);
 	return (0);

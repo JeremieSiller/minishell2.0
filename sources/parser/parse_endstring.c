@@ -6,13 +6,12 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/03 19:54:40 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 21:35:33 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parser.h>
 #include <utilities.h>
-
 
 // IS NOT CORRECTLY PARSED STILL NEED TO FIGURE SHIT OUT
 static int	parse_variable(char **str, char **strbuf)
@@ -38,7 +37,7 @@ static int	parse_variable(char **str, char **strbuf)
 		if (!variable)
 			return (1);
 		if (string_append(strbuf, variable))
-			return (1);	
+			return (1);
 	}
 	else if (var_name)
 	{

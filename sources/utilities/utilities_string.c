@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utilities_string.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/03 21:30:57 by nschumac          #+#    #+#             */
+/*   Updated: 2021/11/03 21:35:00 by nschumac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <utilities.h>
 
 int	strrlen(char *str)
@@ -22,11 +34,11 @@ int	darr_size(char **str)
 	return (cnt);
 }
 
-
 int	char_append(char **str, char c)
 {
 	char	*buf;
 	int		cnt;
+
 	buf = (char *)malloc(strrlen(*str) + 2);
 	if (!buf)
 		return (1);
@@ -86,7 +98,7 @@ int	string_append(char **org, char *str)
 	while (str && str[cnt - cnt2])
 	{
 		buf[cnt] = str[cnt - cnt2];
-		cnt++;	
+		cnt++;
 	}
 	if (*org)
 		free(*org);

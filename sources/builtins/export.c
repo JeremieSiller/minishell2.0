@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 21:23:47 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 15:39:46 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 21:27:43 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	oldenvs(char *env)
 /*
 ** prints all exported variables
 */
-static int	printexportnovars()
+static int	printexportnovars(void)
 {
 	int		i;
 	char	*buf;
@@ -84,7 +84,7 @@ int	bt_export(char **argv)
 		return (0);
 	else if (darr_size(argv) == 1)
 		return (printexportnovars());
-	else if (darr_size(argv) >= 2)	
+	else if (darr_size(argv) >= 2)
 		return (doexport(argv));
 	return (1);
 }

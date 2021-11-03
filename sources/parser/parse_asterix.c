@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_asterix.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/03 21:30:07 by nschumac          #+#    #+#             */
+/*   Updated: 2021/11/03 21:38:07 by nschumac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <parser.h>
 #include <minishell.h>
 #include <utilities.h>
@@ -21,15 +33,16 @@ static int	includepath(char *path, char *key)
 			if (ft_strncmp(path, key, pos - key))
 				return (0);
 			path += pos - key;
-		} // after first *
+		}
 		first = 0;
 		before = pos;
 		pos = ft_strchr(pos + 1, '*');
-		if (!pos) // can be end of key or no other characters
+		if (!pos)
 		{
 			if (key[ft_strlen(key) - 1] == '*')
 				return (1);
-			if (ft_strnstr(path, before + 1, ft_strlen(path)) == path + ft_strlen(path) - ft_strlen(before + 1))
+			if (ft_strnstr(path, before + 1, ft_strlen(path))
+				== path + ft_strlen(path) - ft_strlen(before + 1))
 				return (1);
 			return (0);
 		}
@@ -44,7 +57,6 @@ static int	includepath(char *path, char *key)
 	}
 	return (1);
 }
-
 
 int	parse_arsterix(char **str, char **strbuf, t_cmds **cur)
 {
@@ -67,8 +79,10 @@ int	parse_arsterix(char **str, char **strbuf, t_cmds **cur)
 	amount = 0;
 	while (dirent)
 	{
-		if (ft_strncmp(dirent->d_name, ".", 1) && includepath(dirent->d_name, *strbuf))
-			if (++amount && dstring_append(&(*cur)->cmd, ft_strdup(dirent->d_name)))
+		if (ft_strncmp(dirent->d_name, ".", 1)
+			&& includepath(dirent->d_name, *strbuf))
+			if (++amount && dstring_append(&(*cur)->cmd,
+					ft_strdup(dirent->d_name)))
 				return (1);
 		dirent = readdir(dir);
 	}

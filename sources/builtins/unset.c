@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 21:24:29 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 12:54:47 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 21:28:29 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static char	set_newenv(char *env)
 	new_env = NULL;
 	while (g_ourenv.env && g_ourenv.env[i])
 	{
-		if (!(!ft_strncmp(g_ourenv.env[i], env, ft_strchr(g_ourenv.env[i], '=') - g_ourenv.env[i])))
+		if (!(!ft_strncmp(g_ourenv.env[i], env,
+					ft_strchr(g_ourenv.env[i], '=') - g_ourenv.env[i])))
 		{
 			if (dstring_append(&new_env, g_ourenv.env[i]))
 				return (1);
