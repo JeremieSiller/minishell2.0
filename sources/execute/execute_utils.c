@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 17:03:52 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 18:47:08 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 21:18:31 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,60 @@ void	ft_wait(void *pid)
 		((t_pid *)pid)->exit = WEXITSTATUS(((t_pid *)pid)->exit);
 }
 
-int	check_builtin(char **cmd, t_execute *exec)
+int	check_builtin(t_cmds *cmd, t_execute *exec)
 {
 	int	i;
 
 	i = 0;
 	while (g_built_cmd[i].name)
 	{
-		if (!ft_strncmp(cmd[0], g_built_cmd[i].name,
+		if (!ft_strncmp(cmd->cmd[0], g_built_cmd[i].name,
 				ft_strlen(g_built_cmd[i].name) + 1))
 		{
-			exec->exit = g_built_cmd[i].func(cmd);
+			if (redirect(cmd, exec) == 1)
+			{
+				exec->exit = 1;
+				return (0);
+			}
+			exec->exit = g_built_cmd[i].func(cmd->cmd);
 			return (0);
 		}
 		i++;
 	}
 	return (1);
+}
+
+int	check_builtin_main(t_cmds *cmd, t_execute *exec)
+{
+	int	ret;
+
+	exec->s_in = dup(0);
+	if (exec->s_in == -1)
+	{
+		perror("minishell");
+		exec->exit = 1;
+		return (0);
+	}
+	exec->s_out = dup(1);
+	if (exec->s_out == -1)
+	{
+		close(exec->s_in);
+		perror("minishell");
+		exec->exit = 1;
+		return (0);
+	}
+	ret = check_builtin(cmd, exec);
+	if (dup2(exec->s_in, 0) == -1 || dup2(exec->s_out, 1) == -1)
+	{
+		perror("minishell");
+		close(exec->s_in);
+		close(exec->s_out);
+		exec->exit = 1;
+		return (0);
+	}
+	close(exec->s_in);
+	close(exec->s_out);
+	return (ret);
 }
 
 void	collect_garbage(t_execute *exec)

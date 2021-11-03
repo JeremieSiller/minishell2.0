@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 19:54:21 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 21:17:31 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static int	child(t_execute *exec, t_cmds *data)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	changetermios(true);
-	if (redirect(data, exec) == 1)
-		return (execute_child_erros(1, exec, data));
-	if (check_builtin(data->cmd, exec) == 0)
+	if (check_builtin(data, exec) == 0)
 	{
 		collect_garbage(exec);
 		return (exec->exit);
 	}
+	if (redirect(data, exec) == 1)
+		return (execute_child_erros(1, exec, data));
 	ret = check_cmd(exec, data, &str);
 	if (ret != 0)
 		return(ret);
@@ -119,7 +119,7 @@ unsigned char	execute(t_cmds *data)
 	{
 		if (data->write == 1 || data->read == 1
 			|| (data->write == 0 && data->read == 0
-				&& check_builtin(data->cmd, &exec) == 1))
+				&& check_builtin_main(data, &exec) == 1))
 		{
 			if (create_childs(data, &exec) != 0)
 				return (exec.exit);
