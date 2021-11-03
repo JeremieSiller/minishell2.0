@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 21:25:38 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 19:57:57 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 21:22:11 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 #include <execute.h>
 #include <signals.h>
 
+
+
 static int	read_from_stdin(t_cmds *data, int fd[2], int i)
 {
 	char	*str;
 
 	changetermios(false);
+	signal(SIGINT, SIG_DFL);
 	str = readline("> ");
 	while (str && ft_strncmp(data->in_dir[i]->path, str,
 			ft_strlen(data->in_dir[i]->path) + 1))
