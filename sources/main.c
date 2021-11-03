@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 13:51:28 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 17:07:04 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ int	main(int argc, char *argv[], char **env)
 			if (find_last(cmds)->cmd == NULL)
 				cmds = delete_node(find_last(cmds));
 			cmds = find_listhead(cmds);
-			execute(cmds);
+			g_ourenv.exit_status = execute(cmds);
 			clear_list(cmds, 0);
 		}
 		else
-			ft_putstr_fd("help", 1);
-		add_history(str);
+			ft_putstr_fd("syntax error\n", 2);
+		if(str && str[0])
+			add_history(str);
 		free(str);
 	}
 	return (0);
