@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 15:36:59 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 17:14:02 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ int	create_childs(t_cmds *data, t_execute *exec)
 		return (execute_errors(FORK_ERR, exec));
 	if (pid->pid == 0)
 		exit(child(exec, data));
-	else
-		parent(exec, data);
+	parent(exec, data);
 	return (0);
 }
 
