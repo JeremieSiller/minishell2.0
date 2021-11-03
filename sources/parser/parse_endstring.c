@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/10/28 20:08:18 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 18:01:51 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 static int	parse_variable(char **str, char **strbuf)
 {
 	char	*var_name;
+	char	*variable;
 
 	var_name = NULL;
 	(*str)++;
@@ -30,10 +31,22 @@ static int	parse_variable(char **str, char **strbuf)
 		(*str)++;
 	}
 	--(*str);
-	if (var_name)
+	if (!var_name && *(*str + 1) == '?')
 	{
-		//GET ACTUAL VALUE OF ENV VAR
-		if (string_append(strbuf, var_name))
+		(*str)++;
+		variable = ft_itoa(g_ourenv.exit_status);
+		if (!variable)
+			return (1);
+		if (string_append(strbuf, variable))
+			return (1);	
+	}
+	else if (var_name)
+	{
+		variable = ft_strdup(get_env_value(var_name));
+		free(var_name);
+		if (!variable)
+			return (1);
+		if (string_append(strbuf, variable))
 			return (1);
 	}
 	else if (char_append(strbuf, **str))
