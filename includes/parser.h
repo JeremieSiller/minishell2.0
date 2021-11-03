@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:02 by jsiller           #+#    #+#             */
-/*   Updated: 2021/10/28 20:09:25 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/02 15:00:44 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ int		parse_redirections(char **str, char **strbuf, t_cmds **cur, int *fc);
 
 int		parse_redirections_2(char **str, t_cmds **cur);
 
+int		parse_arsterix(char **str, char **strbuf, t_cmds **cur, int *fc);
 #endif

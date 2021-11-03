@@ -19,6 +19,7 @@ SOURCES =	sources/main.c																\
 			sources/parser/parse_redirections_2.c										\
 			sources/parser/parse_endstring.c											\
 			sources/parser/parse_endcommand.c											\
+			sources/parser/parse_asterix.c												\
 			sources/utilities/utilities_list.c											\
 			sources/utilities/utilities_list_2.c										\
 			sources/utilities/utilities_string.c										\

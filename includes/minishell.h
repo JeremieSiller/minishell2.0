@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:59 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/02 15:15:07 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 12:11:27 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/stat.h>
 # include <sys/ioctl.h>
 # include <signal.h>
+# include <dirent.h>
 
 # define OPERATORS_NONE 0
 # define OPERATORS_OR 1
