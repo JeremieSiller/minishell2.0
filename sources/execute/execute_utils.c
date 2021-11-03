@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 17:03:52 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/01 20:53:45 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 18:47:08 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ static const t_builtins	g_built_cmd[] = {
 void	ft_wait(void *pid)
 {
 	waitpid(((t_pid *)pid)->pid, &((t_pid *)pid)->exit, 0);
+	if (WIFSIGNALED(((t_pid *)pid)->exit))
+	{
+		if (WTERMSIG(((t_pid *)pid)->exit) == 3)
+			ft_putstr_fd("Quit: 3\n", 2);
+		if (WTERMSIG(((t_pid *)pid)->exit) == 2)
+			ft_putstr_fd("\n", 2);
+		if (WTERMSIG(((t_pid *)pid)->exit) == 1)
+			ft_putstr_fd("Hangup: 1\n", 2);
+		((t_pid *)pid)->exit = WTERMSIG(((t_pid *)pid)->exit) + 128;
+	}
 	if (WIFEXITED(((t_pid *)pid)->exit))
 		((t_pid *)pid)->exit = WEXITSTATUS(((t_pid *)pid)->exit);
 }
