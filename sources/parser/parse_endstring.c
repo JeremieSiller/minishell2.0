@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/03 18:37:58 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 19:32:59 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,8 @@ static int	parse_single(char **str, char **strbuf)
 	return (0);
 }
 
-int	parse_qoutes(char **str, char **strbuf, int *fc)
+int	parse_qoutes(char **str, char **strbuf)
 {
-	*fc = 1;
 	if (**str == '\'')
 		return (parse_single(str, strbuf));
 	else if (**str == '\"')

@@ -46,13 +46,12 @@ static int	includepath(char *path, char *key)
 }
 
 
-int	parse_arsterix(char **str, char **strbuf, t_cmds **cur, int *fc)
+int	parse_arsterix(char **str, char **strbuf, t_cmds **cur)
 {
 	DIR				*dir;
 	struct dirent	*dirent;
 	int				amount;
 
-	*fc = 1;
 	while (**str && !ft_strchr(ENDCOMMAND, **str) && **str != ' ')
 	{
 		if (!ft_strchr(ENDSTRING, **str) && char_append(strbuf, **str))
