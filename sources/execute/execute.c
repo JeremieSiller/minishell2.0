@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/02 15:16:03 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 15:36:59 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@
 #include <sys/errno.h>
 #include <utilities.h>
 
-extern char	**environ;
-
 static int	check_cmd(t_execute *exec, t_cmds *data, char **str)
 {
 	int	ret;
 
-	ret = find_command(data->cmd[0], str, environ);
+	ret = find_command(data->cmd[0], str, g_ourenv.env);
 	if (ret == 1)
 		return (execute_child_erros(1, exec, data));
 	collect_garbage(exec);
@@ -52,7 +50,7 @@ static int	child(t_execute *exec, t_cmds *data)
 	ret = check_cmd(exec, data, &str);
 	if (ret != 0)
 		return (ret);
-	execve(str, data->cmd, environ);
+	execve(str, data->cmd, g_ourenv.env);
 	perror(data->cmd[0]);
 	return (126);
 }

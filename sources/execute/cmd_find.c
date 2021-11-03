@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 17:37:36 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/01 17:38:23 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 12:48:28 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	free_path(char **path, int returnvalue)
 
 static int	not_found_404(char *arg, char **path, char **str)
 {
-	free_path(path, 0);
+	if (path)
+		free_path(path, 0);
 	*str = arg;
 	if (arg[0] == '/' || !ft_strncmp(arg, "./", 2))
 		return (0);
@@ -51,11 +52,9 @@ int	find_command(char *arg, char **str, char __attribute__((unused)) **env)
 	char		*tmp;
 	struct stat	buf;
 
-	path = ft_split("/Users/jsiller/.brew/bin:/Users/jsiller/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/jsiller/.brew/bin", ':');
-	if (!path)
-		return (1);
+	path = ft_split(get_env_value("PATH"), ':');
 	i = 0;
-	while (path[i] && ft_strncmp(arg, "./", 2) && arg[0] != '/')
+	while (path && path[i] && ft_strncmp(arg, "./", 2) && arg[0] != '/')
 	{
 		tmp = ft_strjoin(path[i], "/");
 		if (!tmp)

@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:05:32 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/01 21:30:46 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 13:52:11 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <libft.h>
 # include <minishell.h>
-#include <signal.h>
+# include <signal.h>
 
 # define PIPE_ERR 2
 # define MALLOC_ERR 3
@@ -44,4 +44,5 @@ int				execute_errors(int ret, t_execute *exec);
 void			check_operators(t_cmds **data, t_execute *exec);
 int				execute_child_erros(int ret, t_execute *exec, t_cmds *data);
 int				redirect(t_cmds *data, t_execute *exec);
+void			update_env(t_cmds *cmds);
 #endif

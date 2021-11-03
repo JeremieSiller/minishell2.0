@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:04 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/02 12:13:39 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 15:58:49 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,8 @@ int		darr_size(char **str);
 /*
 ** env suff
 */
+
+char	*get_env_value(char *str);
+int		free_env(void);
 
 #endif

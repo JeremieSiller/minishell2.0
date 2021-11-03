@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 21:24:29 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/02 12:19:30 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 12:54:47 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@
 static char	set_newenv(char *env)
 {
 	char	**new_env;
-	int		c[2];
+	int		i;
 
-	ft_bzero(c, 2 * sizeof(int));
-	c[1] = ft_strlen(env);
+	i = 0;
 	new_env = NULL;
-	while (++c[0] && g_ourenv.env[c[0] - 1])
+	while (g_ourenv.env && g_ourenv.env[i])
 	{
-		if (!ft_strncmp(g_ourenv.env[c[0] - 1], env, c[1])
-			&& g_ourenv.env[c[0] - 1][c[1]] == '=')
-			free(g_ourenv.env[c[0] - 1]);
-		else
-			if (dstring_append(&new_env, g_ourenv.env[c[0] - 1]))
+		if (!(!ft_strncmp(g_ourenv.env[i], env, ft_strchr(g_ourenv.env[i], '=') - g_ourenv.env[i])))
+		{
+			if (dstring_append(&new_env, g_ourenv.env[i]))
 				return (1);
+		}
+		else
+			free(g_ourenv.env[i]);
+		i++;
 	}
 	free(g_ourenv.env);
 	g_ourenv.env = new_env;
@@ -47,6 +48,7 @@ int	bt_unset(char **argv)
 		{
 			if (set_newenv(argv[i]))
 				return (1);
+			i++;
 		}
 	}
 	return (0);
