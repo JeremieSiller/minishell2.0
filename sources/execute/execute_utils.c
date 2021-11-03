@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 17:03:52 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 18:47:08 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/03 20:02:57 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,19 @@ void	ft_wait(void *pid)
 		((t_pid *)pid)->exit = WEXITSTATUS(((t_pid *)pid)->exit);
 }
 
-int	check_builtin(char **cmd, t_execute *exec)
+int	check_builtin(t_cmds *cmd, t_execute *exec)
 {
 	int	i;
 
 	i = 0;
 	while (g_built_cmd[i].name)
 	{
-		if (!ft_strncmp(cmd[0], g_built_cmd[i].name,
+		if (!ft_strncmp(cmd->cmd[0], g_built_cmd[i].name,
 				ft_strlen(g_built_cmd[i].name) + 1))
 		{
-			exec->exit = g_built_cmd[i].func(cmd);
+			if (redirect(cmd, exec) == 1)
+				return (exec->exit);
+			exec->exit = g_built_cmd[i].func(cmd->cmd);
 			return (0);
 		}
 		i++;
