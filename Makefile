@@ -53,7 +53,7 @@ CUT = "\033[K"
 OBJECTS = $(SOURCES:.c=.o)
 
 %.o: %.c
-	@$(CC) -Wall -Wextra -Wall $(CPPFLAGS) $(INC) -o $@ -c $<
+	@$(CC) -Wall -Wextra -Werror $(CPPFLAGS) $(INC) -o $@ -c $<
 
 all: $(NAME)
 	@printf $(G)"                                               \n";
