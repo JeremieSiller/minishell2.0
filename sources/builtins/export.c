@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 21:23:47 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/02 12:13:54 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/02 15:18:40 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ static char	oldenvs(char *env)
 {
 	char	*chr;
 	int		c;
-	int		ret;
 
 	chr = ft_strchr(env, '=');
 	c = 0;
-	ret = 0;
 	while (g_ourenv.env[c])
 	{
 		if (!ft_strncmp(g_ourenv.env[c], env, (chr - env) + 1))

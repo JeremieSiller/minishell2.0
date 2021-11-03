@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/02 13:36:37 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/02 15:16:03 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,9 @@ int	create_childs(t_cmds *data, t_execute *exec)
 	signal(SIGINT, SIG_IGN);
 	if (!our_minishell(data->cmd[0]))
 		signal(SIGINT, fsignal_ctlc);
-	pid = malloc(sizeof(*pid));
+	pid = ft_calloc(sizeof(*pid), 1);
 	if (!pid)
 		return (execute_errors(MALLOC_ERR, exec));
-	*pid = (t_pid){};
 	tmp = ft_lstnew(pid);
 	if (!tmp)
 		free(pid);
