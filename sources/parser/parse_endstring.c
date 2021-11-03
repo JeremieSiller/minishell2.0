@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/03 19:32:59 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 19:54:40 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ static int	parse_variable(char **str, char **strbuf)
 	}
 	else if (var_name)
 	{
-		variable = ft_strdup(get_env_value(var_name));
+		if (get_env_value(var_name))
+			variable = ft_strdup(get_env_value(var_name));
+		else
+			char_append(&variable, '\0');
 		free(var_name);
 		if (!variable)
 			return (1);
