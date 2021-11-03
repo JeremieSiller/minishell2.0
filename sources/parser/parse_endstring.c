@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/03 18:01:51 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/03 18:37:58 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static int	parse_variable(char **str, char **strbuf)
 static int	parse_double(char **str, char **strbuf)
 {
 	(*str)++;
+	if (char_append(strbuf, '\0'))
+		return (1);
 	while (**str != '\"')
 	{
 		if (**str == '\0')
@@ -73,6 +75,8 @@ static int	parse_double(char **str, char **strbuf)
 static int	parse_single(char **str, char **strbuf)
 {
 	(*str)++;
+	if (char_append(strbuf, '\0'))
+		return (1);
 	while (**str != '\'')
 	{
 		if (**str == '\0')
