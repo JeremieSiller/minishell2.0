@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 22:30:23 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/04 16:46:09 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	handleinput(char *str, char *argv)
 	t_cmds	*cmds;
 	char	*symbol;
 
-	symbol = check_input(str); // TO DO BRUDDA
+	symbol = check_input(str, 0); // TO DO BRUDDA
 	if (!symbol)
 	{
 		cmds = NULL;
