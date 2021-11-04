@@ -48,6 +48,7 @@ R = "\033[31m"
 G = "\033[32m"
 B = "\033[34m"
 X = "\033[0m"
+BLACK = "\033[38;2;52;52;52m"
 UP = "\033[A"
 CUT = "\033[K"
 
@@ -56,47 +57,50 @@ OBJECTS = $(SOURCES:.c=.o)
 %.o: %.c
 	@$(CC) -Wall -Wextra -Werror $(CPPFLAGS) $(INC) -o $@ -c $<
 
+
 all: $(NAME)
-	@printf $(G)"                                               \n";
-	@printf $(G)" ,-----.,--. ,--.,-----.  ,----. ,------.      \n";
-	@echo $(G)"'  .--./|  | |  ||  |) /_ '.-.  ||  .-.  \     ";
-	@echo $(G)"|  |    |  | |  ||  .-.  \  .' < |  |  \  :    ";
-	@echo $(G)"'  '--'\'  '-'  '|  '--' //'-'  ||  '--'  /    ";
-	@echo $(G)" \`-----' \`-----' \`------' \`----' \`-------'";
-	@echo $(B)"                       by @nschumac & @jsiller ";
+	@echo $(R)
+	@echo " ███▄ ▄███▓ ██▓ ███▄    █  ██▓  ██████  ██░ ██ ▓█████  ██▓     ██▓    " | fmt -c $$(tput cols)
+	@echo "▓██▒▀█▀ ██▒▓██▒ ██ ▀█   █ ▓██▒▒██    ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒    " | fmt -c $$(tput cols)
+	@echo "▓██    ▓██░▒██▒▓██  ▀█ ██▒▒██▒░ ▓██▄   ▒██▀▀██░▒███   ▒██░    ▒██░    " | fmt -c $$(tput cols)
+	@echo "▒██    ▒██ ░██░▓██▒  ▐▌██▒░██░  ▒   ██▒░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░    " | fmt -c $$(tput cols)
+	@echo "▒██▒   ░██▒░██░▒██░   ▓██░░██░▒██████▒▒░▓█▒░██▓░▒████▒░██████▒░██████▒" | fmt -c $$(tput cols)
+	@echo "░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓  ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░" | fmt -c $$(tput cols)
+	@echo "░  ░      ░ ▒ ░░ ░░   ░ ▒░ ▒ ░░ ░▒  ░ ░ ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░" | fmt -c $$(tput cols)
+	@echo "░      ░    ▒ ░   ░   ░ ░  ▒ ░░  ░  ░   ░  ░░ ░   ░     ░ ░     ░ ░   " | fmt -c $$(tput cols)
+	@echo "       ░    ░           ░  ░        ░   ░  ░  ░   ░  ░    ░  ░    ░  ░" | fmt -c $$(tput cols)
+	@echo $(BLACK)
+	@echo "                                               by @nschumac & @jsiller" | fmt -c $$(tput cols)
 	@echo $(X);
 
 $(NAME): $(LIBFT_NAME) $(OBJECTS)
 	@$(CC) $(OBJECTS) $(CFLAGS) $(LFLAGS) -o $@
-	@echo -n "42-minishell@nschumac,jsiller" >> $(NAME)
 
 $(LIBFT_NAME):
-	@echo $(Y)Compiling $(B)libft $(Y)...$(G)
-	@make -C $(LIB_PATH)
+	@echo $(Y)
+	@echo Compiling libft ... | fmt -c $$(tput cols)
+	@echo $(G)
+	@make -C $(LIB_PATH) | fmt -c $$(tput cols)
 
 clean:
-	@echo $(Y)removing object-files...
+	@echo $(Y)
+	@echo cleaning object-files | fmt -c $$(tput cols)
 	@rm -f $(OBJECTS)
 	@sleep 0.2
-	@echo $(Y)cleaning libft...
 	@make fclean -C $(LIB_PATH)
-	@sleep 0.2
-	@echo $(G)done removing object-fies
+	@echo $(G)
+	@echo done removing object-files | fmt -c $$(tput cols)
 
 fclean:
-	@echo $(Y)cleaning all binary files
+	@echo $(Y)
+	@echo cleaning all binary files | fmt -c $$(tput cols)
 	@make clean
-	@sleep 0.2
-	@echo $(Y)removing executable
 	@rm -f $(NAME)
-	@sleep 0.2
-	@echo $(G)executable removed
-	@echo $(Y)removing libft archive
 	@make fclean -C $(LIB_PATH)
 	@sleep 0.2
-	@echo $(G)libft archive removed
-	@sleep 0.2
-	@echo $(G)fclean done $(X)
+	@echo $(G)
+	@echo fclean done | fmt -c $$(tput cols)
+	@bash -c "echo -n"
 
 
 re: fclean all
