@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/04 18:08:39 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/04 18:52:53 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	handleinput(char *str, char *argv)
 	t_cmds	*cmds;
 	char	*symbol;
 
-	symbol = check_input(str); // TO DO BRUDDA
+	symbol = check_input(str, 0);
 	if (!symbol)
 	{
 		cmds = NULL;
@@ -85,5 +85,4 @@ int	main(int argc, char *argv[], char **env)
 		free(str);
 	}
 	return (0);
-	(void)env;
 }

@@ -51,12 +51,17 @@ int	set_incorrect(char **str, char **ret)
 	return (1);
 }
 
-int	check_brack(char **str, char **ret)
+int	check_brack(char **str, char **ret, int scop2)
 {
 	int	scope;
 
 	(*str)++;
-	*ret = check_input(*str);
+	*ret = check_input(*str, scop2 + 1);
+	if (*ret && !ft_strncmp(*ret, ")", 2))
+	{
+		free(*ret);
+		*ret = NULL;
+	}
 	if (*ret)
 		return (1);
 	scope = 1;
@@ -68,12 +73,12 @@ int	check_brack(char **str, char **ret)
 			scope++;
 		(*str)++;
 	}
-	(*str)--;
 	if (scope != 0)
 		if (char_append(ret, '('))
 			return (1);
 	if (*ret)
 		return (1);
+	(*str)--;
 	return (0);
 }
 
@@ -99,13 +104,49 @@ int	check_qoute(char **str, char **ret)
 	return (0);
 }
 
+int	check_redirections(char **str, char **ret)
+{
+	if (**str == '>')
+	{
+		(*str)++;
+		if (**str == '>')
+			(*str)++;
+	}
+	else
+	{
+		(*str)++;
+		if (**str == '<')
+			(*str)++;
+	}	
+	while (ft_isspace(**str))
+		(*str)++;
+	if (!**str)
+	{
+		*ret = ft_strdup("newline");
+		return (1);
+	}
+	if (ft_strchr(ENDCOMMAND, **str))
+	{
+		char_append(ret, **str);
+		if ((**str == '&' || **str == '|') && *(*str + 1) == **str)
+			char_append(ret, **str);
+		return (1);
+	}
+	else if (ft_strchr(REDIRECTIONS, **str))
+	{
+		char_append(ret, **str);
+		return (1);
+	}
+	return (0);
+}
 
 /// REDIRECTIONS ARE MISSING WILL DO 
 // CHECK IF EVERYTHING IS WORKING
-char	*check_input(char *str)
+char	*check_input(char *str, int scope)
 {
 	char	*ret;
 	int		cmd;
+	int		bruh;
 
 	ret = NULL;
 	cmd = 2;
@@ -113,10 +154,17 @@ char	*check_input(char *str)
 		return (ret);
 	while (*str)
 	{
-		if ((*str == '(' && cmd != 2 && set_incorrect(&str, &ret))
-			|| (*str == '(' && check_brack(&str, &ret)) || *str == ')')
+		bruh = 0;
+		if ((*str == '(' && cmd != 2 && ++bruh == 1 && set_incorrect(&str, &ret))
+			|| (*str == '(' && ++bruh == 1 && check_brack(&str, &ret, scope))
+			|| (*str == ')' && scope != 0 && ++bruh == 1))
 			return (ret);
-		else if (ft_strchr(ENDCOMMAND, *str))
+		else if (*str == ')' && ++bruh == 1)
+		{
+			char_append(&ret, ')');
+			return (ret);
+		}
+		else if (*str && ft_strchr(ENDCOMMAND, *str) && ++bruh == 1)
 		{
 			if (cmd == 2)
 			{
@@ -129,11 +177,14 @@ char	*check_input(char *str)
 				str++;
 			cmd = 2;
 		}
-		else if (ft_strchr(ENDSTRING, *str) && *str != '$' && check_qoute(&str, &ret))
+		else if (*str && ft_strchr(ENDSTRING, *str) && *str != '$' && ++bruh == 1 && check_qoute(&str, &ret))
+			return (ret);
+		else if (*str && ft_strchr(REDIRECTIONS, *str) && ++bruh == 1 && check_redirections(&str, &ret))
 			return (ret);
 		else if (!ft_isspace(*str))
 			cmd = 1;
-		str++;
+		if (str)
+			str++;
 	}
 	return (ret);
 }
