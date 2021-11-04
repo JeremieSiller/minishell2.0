@@ -6,11 +6,29 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:35:27 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/03 21:34:20 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/04 20:55:57 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <utilities.h>
+
+static void	free_node2(t_cmds *node)
+{
+	int	cnt;
+
+	if (node->out_dir)
+	{
+		cnt = 0;
+		while (++cnt && node->out_dir[cnt - 1])
+		{
+			if (node->out_dir[cnt - 1]->path)
+				free(node->out_dir[cnt - 1]->path);
+			free(node->out_dir[cnt - 1]);
+		}
+		free(node->out_dir);
+	}
+	free(node);
+}
 
 static void	free_node(t_cmds *node)
 {
@@ -34,18 +52,7 @@ static void	free_node(t_cmds *node)
 		}
 		free(node->in_dir);
 	}
-	if (node->out_dir)
-	{
-		cnt = 0;
-		while (++cnt && node->out_dir[cnt - 1])
-		{
-			if (node->out_dir[cnt - 1]->path)
-				free(node->out_dir[cnt - 1]->path);
-			free(node->out_dir[cnt - 1]);
-		}
-		free(node->out_dir);
-	}
-	free(node);
+	free_node2(node);
 }
 
 int	clear_list(t_cmds *node, int ret)
@@ -106,11 +113,4 @@ t_cmds	*delete_node(t_cmds *node)
 		ret = NULL;
 	free_node(node);
 	return (ret);
-}
-
-t_cmds	*find_listhead(t_cmds *node)
-{
-	while (node && node->previous)
-		node = node->previous;
-	return (node);
 }

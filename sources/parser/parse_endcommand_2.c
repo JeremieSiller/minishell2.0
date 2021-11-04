@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities_list_2.c                                 :+:      :+:    :+:   */
+/*   parse_endcommand_2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 21:30:47 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/04 20:54:35 by nschumac         ###   ########.fr       */
+/*   Created: 2021/11/04 20:44:21 by nschumac          #+#    #+#             */
+/*   Updated: 2021/11/04 20:45:14 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <parser.h>
 #include <utilities.h>
 
-t_cmds	*find_last(t_cmds *node)
+int	parse_or(char **str, char **strbuf, t_cmds **cur)
 {
-	while (node->next != NULL)
-		node = node->next;
-	return (node);
-}
-
-t_cmds	*find_listhead(t_cmds *node)
-{
-	while (node && node->previous)
-		node = node->previous;
-	return (node);
+	if (*strbuf)
+	{
+		if (dstring_append(&(*cur)->cmd, *strbuf))
+			return (1);
+		*strbuf = NULL;
+	}
+	if ((*cur)->cmd)
+		(*cur)->operators = OPERATORS_OR;
+	if ((*cur)->cmd && append_list(cur))
+		return (1);
+	if ((*cur)->previous)
+		(*cur)->previous->operators = OPERATORS_OR;
+	*str += 1;
+	return (0);
 }
