@@ -40,8 +40,8 @@ SOURCES =	sources/main.c																\
 			sources/execute/execute_utils.c												\
 			sources/execute/execute_utils_2.c											\
 			sources/env/env_utils.c														\
-			sources/execute/redirect.c
-
+			sources/execute/redirect.c													\
+			sources/execute/manage_main.c
 #COLORS
 Y = "\033[33m"
 R = "\033[31m"
@@ -102,4 +102,4 @@ fclean:
 re: fclean all
 
 val:
-	docker run -ti -v $(PWD):/test memory-test:0.1 bash && cd test
+	docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -ti -v $(PWD):/test memory-test:0.1 bash && cd test

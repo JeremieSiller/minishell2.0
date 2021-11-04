@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 17:37:36 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 12:48:28 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/04 18:49:58 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	find_command(char *arg, char **str, char __attribute__((unused)) **env)
 
 	path = ft_split(get_env_value("PATH"), ':');
 	i = 0;
-	while (path && path[i] && ft_strncmp(arg, "./", 2) && arg[0] != '/')
+	while (path && path[i] && ft_strncmp(arg, "./", 2) && arg[0] != '/' && arg[0])
 	{
 		tmp = ft_strjoin(path[i], "/");
 		if (!tmp)
@@ -64,7 +64,7 @@ int	find_command(char *arg, char **str, char __attribute__((unused)) **env)
 		*str = ft_strjoin(path[i], arg);
 		if (!*str)
 			return (free_path(path, 1));
-		if (stat(*str, &buf) == 0)
+		if (stat(*str, &buf) == 0 && access(*str, X_OK) == 0)
 			return (free_path(path, 0));
 		free(*str);
 		i++;

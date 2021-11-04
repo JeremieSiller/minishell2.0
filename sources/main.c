@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/03 22:30:23 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/04 18:08:39 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int argc, char *argv[], char **env)
 		return (handlearg(argv));
 	while (1)
 	{
+		signal(SIGINT, SIG_IGN);
 		signal(SIGINT, gsignal_ctlc);
 		changetermios(false);
 		str = readline("minishell-2.0$ \x1b[s");

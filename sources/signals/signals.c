@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 21:30:35 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/03 23:05:41 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/04 18:17:45 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,14 @@ int	changetermios(bool toggle)
 	if (tcsetattr(STDOUT_FILENO, TCSANOW, &term) == -1)
 		return (1);
 	return (0);
+}
+
+void	heredoc_ctlc(int sigtype)
+{
+	if (sigtype == SIGINT)
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		close(0);
+	}
 }
