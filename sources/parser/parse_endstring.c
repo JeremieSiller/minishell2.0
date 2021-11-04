@@ -6,14 +6,42 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/03 21:35:33 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/04 20:53:09 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parser.h>
 #include <utilities.h>
 
-// IS NOT CORRECTLY PARSED STILL NEED TO FIGURE SHIT OUT
+static int	parse_variable2(char **str,
+		char **strbuf, char **var_name, char **variable)
+{
+	if (!*var_name && *(*str + 1) == '?')
+	{
+		(*str)++;
+		*variable = ft_itoa(g_ourenv.exit_status);
+		if (!(*variable))
+			return (1);
+		if (string_append(strbuf, *variable))
+			return (1);
+	}
+	else if (*var_name)
+	{
+		if (get_env_value(*var_name))
+			*variable = ft_strdup(get_env_value(*var_name));
+		else
+			char_append(variable, '\0');
+		free(*var_name);
+		if (!(*variable))
+			return (1);
+		if (string_append(strbuf, *variable))
+			return (1);
+	}
+	else if (char_append(strbuf, **str))
+		return (1);
+	return (0);
+}
+
 static int	parse_variable(char **str, char **strbuf)
 {
 	char	*var_name;
@@ -21,7 +49,7 @@ static int	parse_variable(char **str, char **strbuf)
 
 	var_name = NULL;
 	(*str)++;
-	if (ft_strchr("\'\"", **str) && (*str)--)
+	if (**str && ft_strchr("\'\"", **str) && (*str)--)
 		return (0);
 	while ((**str == '_' || ft_isalnum(**str)) && **str)
 	{
@@ -30,30 +58,7 @@ static int	parse_variable(char **str, char **strbuf)
 		(*str)++;
 	}
 	--(*str);
-	if (!var_name && *(*str + 1) == '?')
-	{
-		(*str)++;
-		variable = ft_itoa(g_ourenv.exit_status);
-		if (!variable)
-			return (1);
-		if (string_append(strbuf, variable))
-			return (1);
-	}
-	else if (var_name)
-	{
-		if (get_env_value(var_name))
-			variable = ft_strdup(get_env_value(var_name));
-		else
-			char_append(&variable, '\0');
-		free(var_name);
-		if (!variable)
-			return (1);
-		if (string_append(strbuf, variable))
-			return (1);
-	}
-	else if (char_append(strbuf, **str))
-		return (1);
-	return (0);
+	return (parse_variable2(str, strbuf, &var_name, &variable));
 }
 
 static int	parse_double(char **str, char **strbuf)

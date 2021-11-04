@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 21:40:52 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/03 21:42:23by nschumac         ###   ########.fr       */
+/*   Created: 2021/11/04 20:36:18 by nschumac          #+#    #+#             */
+/*   Updated: 2021/11/04 21:16:54 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	set_incorrect(char **str, char **ret)
 	}
 	else
 	{
-		while (**str && !ft_strchr(ENDCOMMAND, **str) && !(ft_strchr(ENDSTRING, **str) && **str != '$') && **str != ')' && !ft_isspace(**str))
+		while (**str && !ft_strchr(ENDCOMMAND, **str)
+			&& !(ft_strchr(ENDSTRING, **str) && **str != '$')
+			&& **str != ')' && !ft_isspace(**str))
 		{
 			char_append(ret, **str);
 			(*str)++;
@@ -161,8 +163,8 @@ char	*check_input(char *str, int scope)
 	while (*str)
 	{
 		bruh = 0;
-
-		if ((*str == '(' && cmd != 2 && ++bruh == 1 && set_incorrect(&str, &ret))
+		if ((*str == '(' && cmd != 2
+				&& ++bruh == 1 && set_incorrect(&str, &ret))
 			|| (*str == '(' && ++bruh == 1 && check_brack(&str, &ret, scope))
 			|| (*str == ')' && scope != 0 && ++bruh == 1))
 			return (ret);
@@ -184,9 +186,11 @@ char	*check_input(char *str, int scope)
 				str++;
 			cmd = 2;
 		}
-		else if (*str && ft_strchr(ENDSTRING, *str) && *str != '$' && ++bruh == 1 && check_qoute(&str, &ret))
+		else if (*str && ft_strchr(ENDSTRING, *str)
+			&& *str != '$' && ++bruh == 1 && check_qoute(&str, &ret))
 			return (ret);
-		else if (*str && ft_strchr(REDIRECTIONS, *str) && ++bruh == 1 && check_redirections(&str, &ret))
+		else if (*str && ft_strchr(REDIRECTIONS, *str)
+			&& ++bruh == 1 && check_redirections(&str, &ret))
 			return (ret);
 		else if (!ft_isspace(*str))
 			cmd = 1;
