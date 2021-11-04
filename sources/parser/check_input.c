@@ -54,6 +54,7 @@ int	set_incorrect(char **str, char **ret)
 int	check_brack(char **str, char **ret, int scop2)
 {
 	int	scope;
+	int	chars;
 
 	(*str)++;
 	*ret = check_input(*str, scop2 + 1);
@@ -65,6 +66,7 @@ int	check_brack(char **str, char **ret, int scop2)
 	if (*ret)
 		return (1);
 	scope = 1;
+	chars = 0;
 	while (scope != 0 && **str)
 	{
 		if (**str == ')')
@@ -72,7 +74,11 @@ int	check_brack(char **str, char **ret, int scop2)
 		else if (**str == '(')
 			scope++;
 		(*str)++;
+		chars++;
 	}
+	if (chars == 1)
+		if (char_append(ret, ')'))
+			return (1);
 	if (scope != 0)
 		if (char_append(ret, '('))
 			return (1);
@@ -155,16 +161,17 @@ char	*check_input(char *str, int scope)
 	while (*str)
 	{
 		bruh = 0;
+
 		if ((*str == '(' && cmd != 2 && ++bruh == 1 && set_incorrect(&str, &ret))
 			|| (*str == '(' && ++bruh == 1 && check_brack(&str, &ret, scope))
 			|| (*str == ')' && scope != 0 && ++bruh == 1))
 			return (ret);
-		else if (*str == ')' && ++bruh == 1)
+		if (*str == ')' && ++bruh == 1)
 		{
 			char_append(&ret, ')');
 			return (ret);
 		}
-		else if (*str && ft_strchr(ENDCOMMAND, *str) && ++bruh == 1)
+		if (*str && ft_strchr(ENDCOMMAND, *str) && ++bruh == 1)
 		{
 			if (cmd == 2)
 			{
