@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/04 18:52:53 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/04 19:18:55 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@
 #include <execute.h>
 #include <signals.h>
 #include <env.h>
+
+void	exit_free(t_cmds *cmd, char *str, bool status)
+{
+	static t_cmds	*data;
+	static char		*s;
+
+	if (status == 0)
+	{
+		data = cmd;
+		s = str;
+	}
+	else
+	{
+		clear_history();
+		clear_list(cmd, 0);
+		free(s);
+	}
+}
 
 static int	handlearg(char *argv[])
 {
@@ -50,6 +68,7 @@ static int	handleinput(char *str, char *argv)
 		if (find_last(cmds)->cmd == NULL)
 			cmds = delete_node(find_last(cmds));
 		cmds = find_listhead(cmds);
+		exit_free(cmds, str, 0);
 		g_ourenv.exit_status = execute(cmds);
 		clear_list(cmds, 0);
 		return (0);

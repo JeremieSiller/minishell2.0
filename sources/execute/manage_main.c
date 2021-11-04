@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_main.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 19:07:41 by jsiller           #+#    #+#             */
+/*   Updated: 2021/11/04 19:31:23 by jsiller          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <execute.h>
 #include <minishell.h>
 #include <builtins.h>
@@ -91,8 +103,7 @@ static int	reset_to_std(t_execute *exec, t_cmds *cmd)
 }
 
 /*
-** executes builtins in main. Redirections need to be handled 
-** differently if its a builtin
+** executes builtins in main
 ** returns 1 on error
 */
 int	exec_in_main(t_execute *exec, t_cmds *cmd)
@@ -106,7 +117,7 @@ int	exec_in_main(t_execute *exec, t_cmds *cmd)
 		close(exec->s_out);
 		return (1);
 	}
-	exec->exit = check_builtin(cmd, exec);
+	check_builtin(cmd, exec);
 	if (reset_to_std(exec, cmd) == 1)
 		return (1);
 	return (exec->exit);
