@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 21:25:38 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/04 18:26:30 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/05 15:52:04 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	read_from_stdin(t_cmds *data, int fd[2], int i)
 		free(str);
 		str = readline("> ");
 	}
+	if (str)
+		return (1);
 	free(str);
 	if (!data->in_dir[i + 1] && dup2(fd[0], 0) == -1)
 	{
@@ -123,10 +125,11 @@ static int	in_directions(t_cmds *data)
 
 int	redirect(t_cmds *data, t_execute *exec)
 {
-	if (data->read == 1 && dup2(exec->s_fd, 0) == -1)
+	if (!has_heredoc(data) && data->read == 1 && dup2(exec->s_fd, 0) == -1)
 		return (execute_child_erros(1, exec, data));
 	if (here_doc(data) == 1)
 	{
+		printf("THIS!");
 		exec->exit = 1;
 		return (1);
 	}

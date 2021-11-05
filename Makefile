@@ -79,7 +79,7 @@ $(NAME): $(LIBFT_NAME) $(OBJECTS)
 
 $(LIBFT_NAME):
 	@echo $(Y)
-	@echo Compiling libft ... | fmt -c $$(tput cols)
+	@echo compiling libft ... | fmt -c $$(tput cols)
 	@echo $(G)
 	@make -C $(LIB_PATH) | fmt -c $$(tput cols)
 

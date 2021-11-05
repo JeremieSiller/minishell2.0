@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:05:32 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/04 17:51:18 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/05 15:18:06 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,6 @@ int				check_builtin_main(t_cmds *cmd, t_execute *exec);
 int				exec_in_main(t_execute *exec, t_cmds *cmd);
 int				create_childs(t_cmds *data, t_execute *exec);
 int				is_builtin(char *cmd);
+int				has_heredoc(t_cmds *data);
+void			wait_for_real(t_list *lst, t_execute *exec);
 #endif

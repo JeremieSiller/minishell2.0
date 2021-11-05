@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/04 19:18:55 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:55:43 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exit_free(t_cmds *cmd, char *str, bool status)
 	else
 	{
 		clear_history();
-		clear_list(cmd, 0);
+		clear_list(data, 0);
 		free(s);
 	}
 }

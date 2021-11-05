@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_endcommand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:26 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/04 20:45:05 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/05 13:56:12 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static int	parse_brackets2(char **str, char **buf, t_cmds **cur)
 
 static int	parse_brackets(char **str, char **strbuf, t_cmds **cur, char *argv)
 {
-	int		scope;
 	char	*buf;
 
 	if (*strbuf)
@@ -88,7 +87,6 @@ static int	parse_brackets(char **str, char **strbuf, t_cmds **cur, char *argv)
 	}
 	if ((*cur)->cmd && append_list(cur))
 		return (1);
-	scope = 0;
 	buf = ft_strdup(argv);
 	if (!buf)
 		return (1);

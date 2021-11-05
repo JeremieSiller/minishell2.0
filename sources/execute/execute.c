@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/04 18:59:09 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/05 15:47:44 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ static void	parent(t_execute *exec, t_cmds *data)
 	exec->fd[0] = -1;
 	if (data->operators != OPERATORS_NONE)
 	{
-		ft_lstiter(exec->lst, ft_wait);
-		exec->exit = ((t_pid *)ft_lstlast(exec->lst)->content)->exit;
+		wait_for_real(exec->lst, exec);
 	}
 }
 
@@ -116,12 +115,21 @@ unsigned char	execute(t_cmds *data)
 			exec.exit = exec_in_main(&exec, data);
 		else if (create_childs(data, &exec))
 			exec.exit = 1;
-		data = data->next;
+		if (has_heredoc(data))
+		{
+			ft_lstiter(exec.lst, ft_wait);
+			if (exec.lst)
+				exec.exit = ((t_pid *)ft_lstlast(exec.lst)->content)->exit;
+			while (exec.exit >= 128 && data && data->operators == 0)
+			{
+				data = data->next;
+			}
+		}
+		if (data)
+			data = data->next;
 		check_operators(&data, &exec);
 	}
-	ft_lstiter(exec.lst, ft_wait);
-	if (exec.lst)
-		exec.exit = ((t_pid *)ft_lstlast(exec.lst)->content)->exit;
+	wait_for_real(exec.lst, &exec);
 	collect_garbage(&exec);
 	return (exec.exit);
 }
