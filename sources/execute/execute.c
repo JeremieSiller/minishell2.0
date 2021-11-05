@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/05 15:47:44 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/05 16:37:56 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	child(t_execute *exec, t_cmds *data)
 	signal(SIGQUIT, SIG_DFL);
 	changetermios(true);
 	if (redirect(data, exec) == 1)
-		return (execute_child_erros(1, exec, data));
+		exit (1);
 	if (check_builtin(data, exec) == 0)
 	{
 		collect_garbage(exec);
@@ -108,7 +108,6 @@ unsigned char	execute(t_cmds *data)
 	exec.s_fd = -1;
 	exec.fd[0] = -1;
 	exec.fd[1] = -1;
-	exec.lst = 0;
 	while (data != 0)
 	{
 		if (data->write == 0 && data->read == 0 && is_builtin(data->cmd[0]))
@@ -117,13 +116,9 @@ unsigned char	execute(t_cmds *data)
 			exec.exit = 1;
 		if (has_heredoc(data))
 		{
-			ft_lstiter(exec.lst, ft_wait);
-			if (exec.lst)
-				exec.exit = ((t_pid *)ft_lstlast(exec.lst)->content)->exit;
-			while (exec.exit >= 128 && data && data->operators == 0)
-			{
+			wait_for_real(exec.lst, &exec);
+			while (exec.exit == 1 && data && data->operators == 0)
 				data = data->next;
-			}
 		}
 		if (data)
 			data = data->next;

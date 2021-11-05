@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 19:07:41 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/04 19:31:23 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/05 16:07:58 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,7 @@ int	exec_in_main(t_execute *exec, t_cmds *cmd)
 	signal(SIGINT, heredoc_ctlc);
 	if (redirect(cmd, exec) == 1)
 	{
-		close(exec->s_in);
-		close(exec->s_out);
+		reset_to_std(exec, cmd);
 		return (1);
 	}
 	check_builtin(cmd, exec);

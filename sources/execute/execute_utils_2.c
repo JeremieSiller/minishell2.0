@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:01:02 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/05 15:44:44 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/05 16:32:10 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	has_heredoc(t_cmds *data)
 
 void	my_wait(void *pid, int reset)
 {
-	static int safe;
+	static int	safe;
 
 	if (reset == 1)
 	{
@@ -60,12 +60,12 @@ void	my_wait(void *pid, int reset)
 	{
 		if (safe == 0)
 		{
-			if (WTERMSIG(((t_pid *)pid)->exit) == 3)
-				ft_putstr_fd("Quit: 3\n", 2);
 			if (WTERMSIG(((t_pid *)pid)->exit) == 2)
 				ft_putstr_fd("\n", 2);
 			if (WTERMSIG(((t_pid *)pid)->exit) == 1)
-				ft_putstr_fd("Hangup: 1\n", 2);
+				((t_pid *)pid)->exit = WTERMSIG(((t_pid *)pid)->exit);
+			if (WTERMSIG(((t_pid *)pid)->exit) == 1)
+				return ;
 			safe = 1;
 		}
 		((t_pid *)pid)->exit = WTERMSIG(((t_pid *)pid)->exit) + 128;
@@ -76,7 +76,7 @@ void	my_wait(void *pid, int reset)
 
 void	wait_for_real(t_list *lst, t_execute *exec)
 {
-	t_list *head;
+	t_list	*head;
 
 	head = lst;
 	my_wait(0, 1);

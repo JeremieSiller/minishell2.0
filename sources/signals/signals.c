@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 21:30:35 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/04 18:17:45 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/05 16:06:12 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void	heredoc_ctlc(int sigtype)
 {
 	if (sigtype == SIGINT)
 	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
 		close(0);
+		write(2, "\n", 1);
 	}
 }
