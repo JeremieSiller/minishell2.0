@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 20:36:18 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/04 21:16:54 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/05 14:49:49 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ int	check_redirections(char **str, char **ret)
 	return (0);
 }
 
-/// REDIRECTIONS ARE MISSING WILL DO 
 // CHECK IF EVERYTHING IS WORKING
 char	*check_input(char *str, int scope)
 {

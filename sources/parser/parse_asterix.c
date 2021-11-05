@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 21:30:07 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/04 21:02:37 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:24:58 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,77 +16,71 @@
 
 static int	includepath(char *path, char *key)
 {
-	char	*pos;
-	int		first;
-	char	*before;
-	char	*path1;
+	char	*star;
+	char	*old;
+	char	*curpath;
 
-	first = 1;
-	pos = ft_strchr(key, '*');
-	if (ft_strlen(key) == 1)
-		return (1);
-	while (pos)
+	curpath = path;
+	star = ft_strchr(key, '*');
+	if (ft_strncmp(curpath, key, star - key))
+		return (0);
+	curpath += star - key;
+	star = ft_strchr(key, '*');
+	old = star + 1;
+	star = ft_strchr(old, '*');
+	while (star)
 	{
-		if (pos != key && first)
-		{
-			first = 0;
-			if (ft_strncmp(path, key, pos - key))
-				return (0);
-			path += pos - key;
-		}
-		first = 0;
-		before = pos;
-		pos = ft_strchr(pos + 1, '*');
-		if (!pos)
-		{
-			if (key[ft_strlen(key) - 1] == '*')
-				return (1);
-			if (ft_strnstr(path, before + 1, ft_strlen(path))
-				== path + ft_strlen(path) - ft_strlen(before + 1))
-				return (1);
+		curpath = ft_strnstr(curpath, old, star - old);
+		if (!curpath)
 			return (0);
-		}
-		*pos = '\0';
-		path1 = ft_strnstr(path, before + 1, ft_strlen(path));
-		*pos = '*';
-		if (!path1)
-			return (0);
-		*pos = '\0';
-		path = path1 + ft_strlen(before + 1);
-		*pos = '*';
+		old = star + 1;
+		star = ft_strchr(old, '*');
 	}
+	star = ft_strrchr(key, '*') + 1;
+	if (ft_strncmp((curpath + ft_strlen(curpath)
+				- ft_strlen(star)), star, ft_strlen(curpath)))
+		return (0);
 	return (1);
 }
 
-int	parse_arsterix(char **str, char **strbuf, t_cmds **cur)
+static int	do_directory(char *key, t_cmds **cur, int *amount)
 {
 	DIR				*dir;
 	struct dirent	*dirent;
-	int				amount;
 
-	while (**str && !ft_strchr(ENDCOMMAND, **str) && **str != ' ')
-	{
-		if (!ft_strchr(ENDSTRING, **str) && char_append(strbuf, **str))
-			return (1);
-		(*str)++;
-	}	
 	dir = opendir("./");
 	if (!dir)
 		perror("minishell");
 	if (!dir)
 		return (1);
 	dirent = readdir(dir);
-	amount = 0;
 	while (dirent)
 	{
 		if (ft_strncmp(dirent->d_name, ".", 1)
-			&& includepath(dirent->d_name, *strbuf))
-			if (++amount && dstring_append(&(*cur)->cmd,
+			&& includepath(dirent->d_name, key))
+			if (++(*amount) && dstring_append(&(*cur)->cmd,
 					ft_strdup(dirent->d_name)))
 				return (1);
 		dirent = readdir(dir);
 	}
 	closedir(dir);
+	return (0);
+}
+
+int	parse_arsterix(char **str, char **strbuf, t_cmds **cur)
+{
+	int				amount;
+
+	while (**str && !ft_strchr(ENDCOMMAND, **str) && **str != ' ')
+	{
+		if (ft_strchr(ENDSTRING, **str))
+			parse_qoutes(str, strbuf);
+		else if (char_append(strbuf, **str))
+			return (1);
+		(*str)++;
+	}	
+	if (do_directory(*strbuf, cur, &amount))
+		return (1);
 	if (amount > 0)
 	{
 		free(*strbuf);
