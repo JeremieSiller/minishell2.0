@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:02 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/04 20:38:08 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:36:04 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 t_cmds	*parse(char *str, t_cmds *cur, char *argv);
 
 char	*check_input(char *str, int scope);
+int		check_qoute(char **str, char **ret);
+int		check_redirections(char **str, char **ret);
+int		set_incorrect(char **str, char **ret);
+
 int		parse_qoutes(char **str, char **strbuf);
 
 int		parse_endcommands(char **str, char **strbuf, t_cmds **cur, char *argv);
