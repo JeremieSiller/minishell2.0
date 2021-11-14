@@ -4,8 +4,8 @@ The goal of this project is to create a simulation, in which you try to keep "ph
 
 ## Usage:
 **MacOs Linux only**
-- `brew install readline`
 - `git clone https://github.com/nschumac/42cursus03-Minishell.git`
+- install <p><a href="https://tiswww.case.edu/php/chet/readline/rltop.html">readline library</a></p> (e.g `brew install readline`)
 - run `make` in cloned repository
 - execute `./minishell`
 
