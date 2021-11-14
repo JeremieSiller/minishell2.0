@@ -12,10 +12,10 @@ The goal of this project is to recreate [bash shell](https://en.wikipedia.org/wi
     - `cd` with parameters                  (e.g `cd ../directory`)
     - `env`                                 (lists all environment variabels)
     - `exit` with parameters                (e.g `exit 42`)
-    - `export` with or without parameters   (e.g `export TEST="test variable")
-    - `unset`                               (e.g `unset TEST`)
+    - `export` with or without parameters   (e.g `export TEST="test variable" `)
+    - `unset`                               (e.g `unset TEST `)
     - `pwd`                                 (shows current directory)
-    - `false` and `true`                    (e.g `false || true && ls)
+    - `false` and `true`                    (e.g `false || true && ls`)
 
 ## Usage:
 **MacOs Linux only**
