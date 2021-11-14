@@ -2,7 +2,7 @@
 ## Description:
 The goal of this project is to recreate [bash shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
 
-###Features:
+### Features:
 - interpretation of `|`, `&&`, `||`, `()`
 - interpretation of `<`, `<<`, `>`, `>>`
 - interpretation of `$`, `"`, `'`
