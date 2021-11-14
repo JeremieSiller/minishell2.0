@@ -3,8 +3,8 @@
 ## Table of contents
 
 1. [About](#about)
-2. [#How to use](#howtouse)
-2. [#libft](#libft)
+2. [How to use](#howtouse)
+2. [libft](#libft)
 
 ## About
 
@@ -15,11 +15,11 @@ The subject allows you only to use a few low-level functions (like malloc, free 
 It was a 2 person project with @nschumac who was responsible for parsing and signal handling. I was repsonsible for
 the executing part and we both did some builtin commands.
 
-##how to use
+## how to use
 
 Clone the repository:
 ```bash
-git clone --recursive
+git clone --recursive https://github.com/ayeCaptainJack/minishell2.0/edit/master/README.md
 ```
 run make to compile the programm:
 ```
@@ -27,14 +27,13 @@ make
 ```
 execute the programm with out arguements to show a prompt and start the shell:
 ```bash
-./minishell2.0
+./minishell
 ```
 or with a command as the first arguement
 ```
-./minishell2.0 "cd .. && ls -la | cat | grep minishell"
+./minishell "cd .. && ls -la | cat | grep minishell"
 ```
 
-## features
 - pipes with `|`
 - operators and parenthesis with `&&`, `||`, `()`
 - redirections with `<`, `<<`, `>`, `>>`
