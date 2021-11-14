@@ -4,9 +4,10 @@ The goal of this project is to create a simulation, in which you try to keep "ph
 
 ## Usage:
 **MacOs Linux only**
+- `brew install readline`
 - `git clone https://github.com/nschumac/42cursus03-Minishell.git`
 - run `make` in cloned repository
-- execute philo e.g `./philo 4 420 200 200`
+- execute `./minishell`
 
 ## Subject:
 <object data="https://github.com/nschumac/42cursus03-Philosophers/blob/main/subject/philosphers-en.pdf" type="application/pdf" width="700px" height="700px">
