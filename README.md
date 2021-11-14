@@ -8,6 +8,7 @@ The goal of this project is to create a simulation, in which you try to keep "ph
 - install [readline library](https://tiswww.case.edu/php/chet/readline/rltop.html) (e.g `brew install readline`)
 - run `make` in cloned repository
 - execute `./minishell`
+
 **you are now in a shell and can execute most commands (ls -a | grep a | cat)**
 ## Subject:
 <object data="https://github.com/nschumac/42cursus03-Philosophers/blob/main/subject/philosphers-en.pdf" type="application/pdf" width="700px" height="700px">
