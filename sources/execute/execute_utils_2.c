@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:01:02 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/05 16:32:10 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/09 12:32:23 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,16 @@ void	my_wait(void *pid, int reset)
 	static int	safe;
 
 	if (reset == 1)
-	{
 		safe = 0;
+	if (reset == 1)
 		return ;
-	}
 	waitpid(((t_pid *)pid)->pid, &((t_pid *)pid)->exit, 0);
 	if (WIFSIGNALED(((t_pid *)pid)->exit))
 	{
 		if (safe == 0)
 		{
+			if (WTERMSIG(((t_pid *)pid)->exit) == 3)
+				ft_putendl_fd("Quit: 3", 2);
 			if (WTERMSIG(((t_pid *)pid)->exit) == 2)
 				ft_putstr_fd("\n", 2);
 			if (WTERMSIG(((t_pid *)pid)->exit) == 1)
