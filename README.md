@@ -1,6 +1,7 @@
 # 42cursus03-Minishell
 ## Description:
 The goal of this project is to recreate [bash shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
+
 ###Features:
     - interpretation of `|`, `&&`, `||`, `()`
     - interpretation of `<`, `<<`, `>`, `>>`
