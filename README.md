@@ -3,19 +3,19 @@
 The goal of this project is to recreate [bash shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
 
 ###Features:
-    - interpretation of `|`, `&&`, `||`, `()`
-    - interpretation of `<`, `<<`, `>`, `>>`
-    - interpretation of `$`, `"`, `'`
-    - interpretation of `*` for the current working directory (e.g ls *)
-    - built in functions:
-        - `echo` with or without `-n`           (e.g `echo -n hello "world"`)
-        - `cd` with parameters                  (e.g `cd ../directory`)
-        - `env`                                 (lists all environment variabels)
-        - `exit` with parameters                (e.g `exit 42`)
-        - `export` with or without parameters   (e.g `export TEST="test variable")
-        - `unset`                               (e.g `unset TEST`)
-        - `pwd`                                 (shows current directory)
-        - `false` and `true`                    (e.g `false || true && ls)
+- interpretation of `|`, `&&`, `||`, `()`
+- interpretation of `<`, `<<`, `>`, `>>`
+- interpretation of `$`, `"`, `'`
+- interpretation of `*` for the current working directory (e.g ls *)
+- built in functions:
+    - `echo` with or without `-n`           (e.g `echo -n hello "world"`)
+    - `cd` with parameters                  (e.g `cd ../directory`)
+    - `env`                                 (lists all environment variabels)
+    - `exit` with parameters                (e.g `exit 42`)
+    - `export` with or without parameters   (e.g `export TEST="test variable")
+    - `unset`                               (e.g `unset TEST`)
+    - `pwd`                                 (shows current directory)
+    - `false` and `true`                    (e.g `false || true && ls)
 
 ## Usage:
 **MacOs Linux only**
