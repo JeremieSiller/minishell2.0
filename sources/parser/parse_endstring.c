@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/04 20:53:09 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/14 16:50:28 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	parse_variable(char **str, char **strbuf)
 	char	*variable;
 
 	var_name = NULL;
+	variable = NULL;
 	(*str)++;
 	if (**str && ft_strchr("\'\"", **str) && (*str)--)
 		return (0);
