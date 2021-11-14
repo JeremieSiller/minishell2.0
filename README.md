@@ -4,7 +4,7 @@ The goal of this project is to recreate [bash shell](https://en.wikipedia.org/wi
 
 ## Usage:
 **MacOs Linux only**
-- `git clone https://github.com/nschumac/42cursus03-Minishell.git`
+- `git clone --recursive https://github.com/nschumac/42cursus03-Minishell.git`
 - install [readline library](https://tiswww.case.edu/php/chet/readline/rltop.html) (e.g `brew install readline`)
 - run `make` in cloned repository
 - execute `./minishell`
