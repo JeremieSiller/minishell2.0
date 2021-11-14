@@ -1,6 +1,6 @@
 # 42cursus03-Minishell
 ## Description:
-The goal of this project is to create a simulation, in which you try to keep "philosophers" alive. They have a strict pattern that they follow -> eat, sleep, think, eat, ... <-. In the simulation the philosophers are sitting at a round table and are sharing forks. This means that two philosophers next to each other can never eat at the same time (in the code this is done through the use of mutex locks).
+The goal of this project is to recreate [bash shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). 
 
 ## Usage:
 **MacOs Linux only**
@@ -9,7 +9,7 @@ The goal of this project is to create a simulation, in which you try to keep "ph
 - run `make` in cloned repository
 - execute `./minishell`
 
-**you are now in a shell and can execute most commands (ls -a | grep a | cat)**
+**you are now in a shell and can execute most commands (e.g ls -a | grep a | cat)**
 ## Subject:
 <object data="https://github.com/nschumac/42cursus03-Philosophers/blob/main/subject/philosphers-en.pdf" type="application/pdf" width="700px" height="700px">
     <embed src="https://github.com/nschumac/42cursus03-Philosophers/blob/main/subject/philosphers-en.pdf">
