@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/15 18:03:43 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/15 18:19:32 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	main(int argc, char *argv[], char **env)
 		changetermios(false);
 		str = readline("minishell-2.0$ \x1b[s");
 		if (str == NULL && write(1, "\x1b[uexit\n", 9) && !changetermios(true))
-			exit(1);
+			exit(0);
 		if (handleinput(str, argv[0]))
 			ft_putstr_fd("minishell: malloc error during runtime\n", 2);
 		if (str && str[0])
