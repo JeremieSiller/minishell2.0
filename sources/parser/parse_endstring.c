@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 00:51:31 by nschumac          #+#    #+#             */
-/*   Updated: 2021/11/14 16:50:28 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/15 17:57:38 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ static int	parse_variable2(char **str,
 		if (string_append(strbuf, *variable))
 			return (1);
 	}
-	else if (char_append(strbuf, **str))
-		return (1);
+	free(*variable);
 	return (0);
 }
 
