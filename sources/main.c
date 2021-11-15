@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 22:36:12 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/15 17:49:53 by nschumac         ###   ########.fr       */
+/*   Updated: 2021/11/15 18:03:43 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,26 @@ static int	handleinput(char *str, char *argv)
 	return (0);
 }
 
+int	get_full_path(char **argv, char arr[4096])
+{
+	if ((*argv)[0] != '.')
+		return (0);
+	if (getcwd(arr, 4096) == 0)
+		return (1);
+	ft_strlcpy(arr + ft_strlen(arr), "/", 2);
+	ft_strlcpy(arr + ft_strlen(arr), argv[0], ft_strlen(argv[0]) + 1);
+	argv[0] = arr;
+	return (0);
+}
+
 int	main(int argc, char *argv[], char **env)
 {
 	char	*str;
+	char	arr[4096];
 
 	if (read_env(env))
 		ft_putstr_fd("minishell: env: error trying to create the env\n", 2);
+	get_full_path(argv, arr);
 	signal(SIGQUIT, SIG_IGN);
 	if (argc == 2)
 		return (handlearg(argv));
