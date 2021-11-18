@@ -54,8 +54,8 @@ BLACK = "\033[38;2;52;52;52m"
 UP = "\033[A"
 CUT = "\033[K"
 
-OBJECTS = $(SOURCES:.c=.o)
 
+OBJECTS = $(SOURCES:.c=.o)
 %.o: %.c
 	@$(CC) -Wall -Wextra -Werror $(CPPFLAGS) $(INC) -o $@ -c $<
 
@@ -77,12 +77,14 @@ all: $(NAME)
 
 $(NAME): $(LIBFT_NAME) $(OBJECTS)
 	@$(CC) $(OBJECTS) $(CFLAGS) $(LFLAGS) -o $@
+	@printf $(X)""
 
 $(LIBFT_NAME):
 	@echo $(Y)
 	@echo compiling libft ... | fmt -c $$(tput cols)
 	@echo $(G)
 	@make -C $(LIB_PATH) | fmt -c $$(tput cols)
+	@printf $(X)""
 
 clean:
 	@echo $(Y)
@@ -92,6 +94,7 @@ clean:
 	@make fclean -C $(LIB_PATH)
 	@echo $(G)
 	@echo done removing object-files | fmt -c $$(tput cols)
+	@printf $(X)""
 
 fclean:
 	@echo $(Y)
@@ -102,8 +105,7 @@ fclean:
 	@sleep 0.2
 	@echo $(G)
 	@echo fclean done | fmt -c $$(tput cols)
-	@bash -c "echo -n"
-
+	@printf $(X)""
 
 re: fclean all
 
