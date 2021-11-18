@@ -6,7 +6,7 @@
 /*   By: jsiller <jsiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 00:13:31 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/18 17:34:31 by jsiller          ###   ########.fr       */
+/*   Updated: 2021/11/18 17:42:23 by jsiller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	child(t_execute *exec, t_cmds *data)
 		return (ret);
 	execve(str, data->cmd, g_ourenv.env);
 	ft_putstr_fd("minishell: ", 2);
-	if (str && strncmp("./", str, 2) && strncmp("/", str, 1))
+	if (str && ft_strncmp("./", str, 2) && ft_strncmp("/", str, 1))
 		free(str);
 	perror(data->cmd[0]);
 	clear_history();
