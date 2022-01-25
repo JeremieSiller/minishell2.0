@@ -34,7 +34,7 @@ The goal of this project is to recreate [bash shell](https://en.wikipedia.org/wi
 
 ## Result:
 - Status: <span style="color:green">Completed</span>
-- Result: <span style="color:green">100%</span>
+- Result: <span style="color:green">125%</span>
 
 ## Contact:
 - 42-slack: nschumac
