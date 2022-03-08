@@ -6,7 +6,7 @@
 /*   By: nschumac <nschumac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 13:03:26 by jsiller           #+#    #+#             */
-/*   Updated: 2021/11/14 16:48:33 by nschumac         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:16:30 by nschumac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_env_value(char *str)
 	while (g_ourenv.env && g_ourenv.env[i] && str)
 	{
 		if (!ft_strncmp(g_ourenv.env[i], str,
-				ft_strchr(g_ourenv.env[i], '=') - g_ourenv.env[i]))
+				ft_strlen(str)))
 			return (ft_strchr(g_ourenv.env[i], '=') + 1);
 		i++;
 	}
